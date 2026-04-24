@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation – Rafi & Adinda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    :root {
+      /* Elegant Color Palette */
+      --dark-green: #112014;
+      --mid-green: #1a2d1d;
+      --light-green: #253f29;
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-pale: #fcf8e3;
+      --cream: #fbf9f1;
+      --text-muted: rgba(251, 249, 241, 0.65);
+    }
+
+    html { 
+      scroll-behavior: smooth; 
+    }
+
+    body {
+      background-color: var(--dark-green);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.04), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.04), transparent 25%);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      color: var(--cream);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--gold);
+      color: var(--dark-green);
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+    .font-display { font-family: 'Cinzel', serif; }
+    .font-sans { font-family: 'Lato', sans-serif; }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .botanical-top {
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 320px;
+      opacity: 0.6;
+      animation: float 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .botanical-bottom {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 320px;
+      opacity: 0.6;
+      transform: rotate(180deg);
+      animation: float 8s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(5px, 10px) rotate(2deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -3rem;
+    }
+
+    .hero-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .gold-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem auto;
+      width: 100%;
+      max-width: 300px;
+    }
+    .gold-divider::before, .gold-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .gold-divider .diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .hero-names {
+      font-size: clamp(4.5rem, 14vw, 8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--gold-light);
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .hero-names .and {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-style: italic;
+      color: var(--gold);
+      display: block;
+      margin: -0.5rem 0;
+    }
+
+    .hero-date {
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-pale);
+      margin-top: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .scroll-indicator:hover { opacity: 1; }
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .mouse {
+      width: 20px; height: 32px;
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      position: relative;
+    }
+    .mouse::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 2px; height: 6px;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: scroll 1.5s infinite;
+    }
+    @keyframes scroll {
+      0% { transform: translate(-50%, 0); opacity: 1; }
+      100% { transform: translate(-50%, 10px); opacity: 0; }
+    }
+
+    /* ─── GLOBAL SECTION LAYOUT ─── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(2.5rem, 6vw, 3.8rem);
+      font-weight: 400;
+      color: var(--gold-light);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    p.body-text {
+      font-size: 1.05rem;
+      line-height: 2;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ─── QUOTE SECTION ─── */
+    .quote-section {
+      background: linear-gradient(180deg, var(--dark-green) 0%, var(--mid-green) 50%, var(--dark-green) 100%);
+      padding: 7rem 2rem;
+    }
+    
+    blockquote {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-pale);
+      line-height: 1.6;
+      max-width: 750px;
+      margin: 0 auto 2rem;
+    }
+
+    .quote-source {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* ─── COUPLE SECTION ─── */
+    .couple-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+
+    .person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .person-photo {
+      width: 140px; height: 180px;
+      border-radius: 90px 90px 0 0; /* Elegant Arch */
+      border: 1px solid var(--gold);
+      padding: 6px;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .person-photo-inner {
+      width: 100%; height: 100%;
+      border-radius: 84px 84px 0 0;
+      background: var(--mid-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: var(--gold);
+      overflow: hidden;
+    }
+
+    .person-name {
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--gold-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .person-parents {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .heart-divider {
+      font-size: 2.5rem;
+      color: var(--gold);
+      font-style: italic;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* ─── EVENTS SECTION ─── */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .event-card {
+      background: var(--mid-green);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 150px 150px 12px 12px; /* Arch shape */
+      padding: 5rem 2rem 3rem;
+      position: relative;
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    
+    .event-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(212, 175, 55, 0.6);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .event-icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 1.5rem;
+      color: var(--gold);
+    }
+
+    .event-name {
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .event-time {
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+
+    .event-date {
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      color: var(--gold-pale);
+      margin-bottom: 1.5rem;
+    }
+
+    .event-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    /* ─── COUNTDOWN ─── */
+    .countdown-wrapper {
+      background: rgba(26, 45, 29, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: clamp(1rem, 4vw, 3rem);
+      flex-wrap: wrap;
+    }
+
+    .countdown-item { 
+      text-align: center;
+      min-width: 80px;
+    }
+
+    .countdown-num {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* ─── VENUE SECTION ─── */
+    .venue-section {
+      background: var(--light-green);
+      padding: 6rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .venue-name {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      color: var(--gold-light);
+      margin: 1rem 0;
+    }
+
+    .venue-address {
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .map-btn {
+      display: inline-block;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      background: transparent;
+      padding: 1rem 2.5rem;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+    
+    .map-btn:hover { 
+      background: var(--gold);
+      color: var(--dark-green);
+      letter-spacing: 0.4em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark-green);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .footer-names {
+      font-size: 2.5rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-note {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-top: 1rem;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                  transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Delay utilities for staggered animations */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .couple-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .heart-divider { 
+        transform: rotate(90deg); 
+      }
+      section {
+        padding: 4rem 1.5rem;
+      }
+      .gold-divider { max-width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <!-- Botanical Decorations -->
+  <svg class="botanical-top" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 290 Q60 180 150 120 Q200 80 260 20" stroke="#d4af37" stroke-width="0.8" fill="none"/>
+    <path d="M30 270 Q50 200 100 160" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+    <path d="M50 250 Q70 180 130 140" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+    <ellipse cx="100" cy="175" rx="30" ry="15" stroke="#d4af37" stroke-width="0.5" fill="rgba(212,175,55,0.05)" transform="rotate(-30 100 175)"/>
+    <ellipse cx="140" cy="140" rx="25" ry="12" stroke="#d4af37" stroke-width="0.5" fill="rgba(212,175,55,0.05)" transform="rotate(-50 140 140)"/>
+    <ellipse cx="170" cy="110" rx="22" ry="10" stroke="#d4af37" stroke-width="0.5" fill="rgba(212,175,55,0.05)" transform="rotate(-60 170 110)"/>
+    <ellipse cx="200" cy="80" rx="18" ry="8" stroke="#d4af37" stroke-width="0.5" fill="rgba(212,175,55,0.05)" transform="rotate(-70 200 80)"/>
+    <circle cx="155" cy="60" r="4" fill="rgba(212,175,55,0.3)"/>
+    <circle cx="230" cy="40" r="3" fill="rgba(212,175,55,0.25)"/>
+  </svg>
+
+  <svg class="botanical-bottom" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 290 Q60 180 150 120 Q200 80 260 20" stroke="#d4af37" stroke-width="0.8" fill="none"/>
+    <path d="M30 270 Q50 200 100 160" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+    <ellipse cx="100" cy="175" rx="30" ry="15" stroke="#d4af37" stroke-width="0.5" fill="rgba(212,175,55,0.05)" transform="rotate(-30 100 175)"/>
+    <ellipse cx="140" cy="140" rx="25" ry="12" stroke="#d4af37" stroke-width="0.5" fill="rgba(212,175,55,0.05)" transform="rotate(-50 140 140)"/>
+    <circle cx="155" cy="60" r="4" fill="rgba(212,175,55,0.3)"/>
+  </svg>
+
+  <div class="hero-content fade-up">
+    <p class="hero-label font-display">Undangan Pernikahan</p>
+    <div class="gold-divider"><span class="diamond"></span></div>
+    <h1 class="hero-names font-serif">
+      Rafi
+      <span class="and">&amp;</span>
+      Adinda
+    </h1>
+    <div class="gold-divider"><span class="diamond"></span></div>
+    <p class="hero-date font-display">Sabtu, 14 Juni 2025</p>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="font-display">Gulir</span>
+    <div class="mouse"></div>
+  </div>
+</header>
+
+<!-- ─── OPENING QUOTE ─── -->
+<section class="quote-section">
+  <div class="fade-up">
+    <blockquote class="font-serif">
+      "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
+    </blockquote>
+    <p class="quote-source font-display">— QS. Ar-Rum: 21</p>
+  </div>
+</section>
+
+<!-- ─── COUPLE ─── -->
+<section>
+  <div class="fade-up">
+    <span class="section-tag font-display">Mempelai</span>
+    <h2 class="font-serif">Dua Jiwa, Satu Tujuan</h2>
+    <p class="body-text">Maha Suci Allah yang telah menautkan dua hati dalam ikatan suci pernikahan. Kami memohon doa restu dari Bapak/Ibu/Saudara/i sekalian.</p>
+  </div>
+  
+  <div class="couple-grid">
+    <!-- Groom -->
+    <div class="person fade-up delay-100">
+      <div class="person-photo">
+        <div class="person-photo-inner font-serif">R</div>
+      </div>
+      <h3 class="person-name font-serif">Muhammad Rafi</h3>
+      <p class="person-parents">Putra dari<br>Bapak Ahmad Fauzan<br>&amp; Ibu Siti Rahayu</p>
+    </div>
+
+    <!-- Divider -->
+    <div class="heart-divider fade-up delay-200">&#10084;</div>
+
+    <!-- Bride -->
+    <div class="person fade-up delay-300">
+      <div class="person-photo">
+        <div class="person-photo-inner font-serif">A</div>
+      </div>
+      <h3 class="person-name font-serif">Adinda Putri</h3>
+      <p class="person-parents">Putri dari<br>Bapak Hendra Wijaya<br>&amp; Ibu Dewi Lestari</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVENTS ─── -->
+<section>
+  <div class="fade-up">
+    <span class="section-tag font-display">Rangkaian Acara</span>
+    <h2 class="font-serif">Hari Bahagia Kami</h2>
+    <p class="body-text">Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara kami.</p>
+  </div>
+
+  <div class="events-grid">
+    <!-- Akad -->
+    <div class="event-card fade-up delay-100">
+      <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <p class="event-name font-display">Akad Nikah</p>
+      <p class="event-time font-serif">08.00</p>
+      <p class="event-date font-sans">SABTU, 14 JUNI 2025</p>
+      <p class="event-desc">Prosesi ijab kabul yang sakral dan penuh berkah sebagai awal perjalanan hidup kami.</p>
+    </div>
+
+    <!-- Resepsi -->
+    <div class="event-card fade-up delay-200">
+      <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <path d="M16 13H8"></path>
+        <path d="M16 17H8"></path>
+        <path d="M10 9H8"></path>
+      </svg>
+      <p class="event-name font-display">Resepsi</p>
+      <p class="event-time font-serif">11.00 – 16.00</p>
+      <p class="event-date font-sans">SABTU, 14 JUNI 2025</p>
+      <p class="event-desc">Pesta pernikahan dan syukuran penuh suka cita bersama keluarga serta para sahabat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COUNTDOWN ─── -->
+<section>
+  <div class="fade-up">
+    <span class="section-tag font-display">Menuju Hari H</span>
+    <h2 class="font-serif">Menghitung Waktu</h2>
+    
+    <div class="countdown-wrapper">
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <span class="countdown-num font-serif" id="cd-days">--</span>
+          <span class="countdown-label font-display">Hari</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num font-serif" id="cd-hours">--</span>
+          <span class="countdown-label font-display">Jam</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num font-serif" id="cd-mins">--</span>
+          <span class="countdown-label font-display">Menit</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num font-serif" id="cd-secs">--</span>
+          <span class="countdown-label font-display">Detik</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VENUE ─── -->
+<div class="venue-section">
+  <section style="padding: 0;" class="fade-up">
+    <span class="section-tag font-display">Lokasi</span>
+    <h2 class="font-serif">Tempat Pelaksanaan</h2>
+    <h3 class="venue-name font-serif">Gedung Serbaguna Griya Indah</h3>
+    <p class="venue-address">
+      Jl. Mawar Raya No. 45, Kemang<br>
+      Jakarta Selatan, DKI Jakarta 12730
+    </p>
+    <a class="map-btn font-display" href="https://maps.google.com" target="_blank" rel="noopener noreferrer">Buka Google Maps</a>
+  </section>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="fade-up">
+    <h2 class="footer-names font-serif">Rafi &amp; Adinda</h2>
+    <div class="gold-divider"><span class="diamond"></span></div>
+    <p class="footer-note">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+    <p class="footer-note font-display" style="margin-top: 3rem; font-size: 0.65rem; opacity: 0.4;">
+      &copy; 2026 • DIBUAT DENGAN CINTA
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Countdown Timer Script
+  const weddingDate = new Date('2025-06-14T08:00:00').getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance <= 0) {
+      document.getElementById('countdown').innerHTML = 
+        '<p class="font-serif" style="font-size:2.5rem; color:var(--gold-light); font-style:italic;">Hari Bahagia Telah Tiba ✨</p>';
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Intersection Observer for Scroll Fade-Up Animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Stop observing once it's visible
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-up').forEach((el) => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
