@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation – Rafi & Adinda</title>
+  <title>Wedding Invitation – Haedar & Astuti</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
   
   <style>
-    /* ─── RESET & BASE ─── */
     *, *::before, *::after { 
       box-sizing: border-box; 
       margin: 0; 
@@ -17,7 +16,6 @@
     }
 
     :root {
-      /* Elegant Color Palette */
       --dark-green: #112014;
       --mid-green: #1a2d1d;
       --light-green: #253f29;
@@ -28,9 +26,7 @@
       --text-muted: rgba(251, 249, 241, 0.65);
     }
 
-    html { 
-      scroll-behavior: smooth; 
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--dark-green);
@@ -44,17 +40,296 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    body.locked { overflow: hidden; }
+
     ::selection {
       background: var(--gold);
       color: var(--dark-green);
     }
 
-    /* ─── TYPOGRAPHY ─── */
     .font-serif { font-family: 'Cormorant Garamond', serif; }
     .font-display { font-family: 'Cinzel', serif; }
     .font-sans { font-family: 'Lato', sans-serif; }
 
-    /* ─── HERO SECTION ─── */
+    /* ─── LILY SVG DECORATIONS ─── */
+    .lily-deco {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      animation: lilyFadeIn 2s ease-out forwards, float 7s ease-in-out infinite;
+    }
+
+    @keyframes lilyFadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-8px) rotate(1.5deg); }
+      66% { transform: translateY(4px) rotate(-1deg); }
+    }
+
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0) rotate(0deg) scaleX(-1); }
+      33% { transform: translateY(6px) rotate(-1.5deg) scaleX(-1); }
+      66% { transform: translateY(-8px) rotate(1deg) scaleX(-1); }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+    }
+
+    /* ─── ENVELOPE OVERLAY ─── */
+    .envelope-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      background: var(--dark-green);
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12), transparent 70%),
+        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05), transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.05), transparent 40%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+      overflow: hidden;
+    }
+
+    /* Lily decorations inside envelope screen */
+    .envelope-lily {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .envelope-lily-tl {
+      top: -20px; left: -30px;
+      width: 220px;
+      opacity: 0.45;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .envelope-lily-tr {
+      top: -10px; right: -40px;
+      width: 200px;
+      opacity: 0.4;
+      animation: floatReverse 9s ease-in-out infinite;
+    }
+
+    .envelope-lily-bl {
+      bottom: -30px; left: -20px;
+      width: 190px;
+      opacity: 0.35;
+      animation: floatSlow 10s ease-in-out infinite;
+      transform-origin: bottom left;
+    }
+
+    .envelope-lily-br {
+      bottom: -20px; right: -30px;
+      width: 210px;
+      opacity: 0.4;
+      animation: floatSlow 8.5s ease-in-out infinite reverse;
+    }
+
+    .envelope-screen.hide {
+      transform: translateY(-100vh);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .envelope-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 450px;
+      padding: 3rem 2rem;
+      perspective: 1200px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .envelope-container {
+      position: relative;
+      width: 340px;
+      height: 230px;
+      margin-bottom: 3.5rem;
+      border-radius: 8px;
+      background: radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.1), transparent 70%);
+      padding: 8px;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
+    }
+
+    .envelope-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .envelope-back {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #1a2d1d 0%, #112014 50%, #0d1c10 100%);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 8px;
+      box-shadow: 
+        0 30px 60px rgba(0,0,0,0.8),
+        inset 0 1px 0 rgba(212, 175, 55, 0.1),
+        0 0 30px rgba(212, 175, 55, 0.05);
+      z-index: 1;
+    }
+
+    .letter {
+      position: absolute;
+      bottom: 5px; left: 50%;
+      transform: translateX(-50%);
+      width: 310px; height: 210px;
+      background: linear-gradient(to bottom, var(--cream) 0%, #fdfcf8 100%);
+      z-index: 2;
+      border-radius: 6px;
+      box-shadow: 
+        0 15px 40px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        inset 0 -1px 0 rgba(0,0,0,0.1);
+      padding: 10px;
+      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .letter-inner {
+      width: 100%; height: 100%;
+      border: 2px solid var(--gold);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(243,229,171,0.05));
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .letter h2 {
+      font-size: 2.2rem;
+      color: var(--dark-green);
+      margin-bottom: 0.3rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+    .letter p {
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      margin: 0.3rem 0;
+    }
+
+    .envelope-front {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .top-flap-wrapper {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 4;
+      transform-origin: top;
+      transition: transform 0.6s cubic-bezier(0.5, 0, 0.2, 1) 0.2s, z-index 0s 0.5s;
+      transform-style: preserve-3d;
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 125px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px; height: 70px;
+      background: radial-gradient(circle at 25% 25%, #fff4e6, #f3e5ab 30%, #d4af37 50%, #b8941d 80%, #8b6508);
+      border-radius: 50% 48% 52% 45% / 48% 50% 45% 52%;
+      z-index: 5;
+      box-shadow: 
+        0 10px 20px rgba(0,0,0,0.6), 
+        inset 0 2px 4px rgba(255,255,255,0.8), 
+        inset 0 -3px 6px rgba(0,0,0,0.4),
+        0 0 15px rgba(212, 175, 55, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--dark-green);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      animation: sealHover 3s ease-in-out infinite;
+    }
+
+    @keyframes sealHover {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.8), 0 0 15px rgba(212, 175, 55, 0.4); }
+      50% { transform: translate(-50%, -48%) scale(1.02); box-shadow: 0 12px 24px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.9), 0 0 25px rgba(212, 175, 55, 0.6); }
+    }
+
+    .wax-seal-inner {
+      width: 52px; height: 52px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .envelope-container.open .wax-seal { opacity: 0; transform: translate(-50%, -50%) scale(1.5) rotateZ(30deg); animation: none; }
+    .envelope-container.open .top-flap-wrapper { transform: rotateX(180deg); z-index: 1; }
+    .envelope-container.open .letter { transform: translate(-50%, -85px); }
+
+    .envelope-text {
+      text-align: center;
+      z-index: 10;
+      animation: fadeInUp 1.2s ease-out 0.4s both;
+    }
+    .envelope-text p { font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.9; }
+    .envelope-text h3 { font-size: 2rem; color: var(--gold-light); margin: 0.8rem 0 2.5rem; font-weight: 300; letter-spacing: 0.05em; }
+    
+    .open-btn {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      padding: 1rem 2.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 2px;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+    .open-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: -1; }
+    .open-btn:hover { color: var(--dark-green); letter-spacing: 0.4em; border-color: var(--gold-light); }
+    .open-btn:hover::before { left: 0; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .envelope-logo {
+      width: 80px; height: 80px;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    /* ─── HERO ─── */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -64,6 +339,37 @@
       position: relative;
       padding: 2rem;
       text-align: center;
+      overflow: hidden;
+    }
+
+    /* Hero lily decorations */
+    .hero-lily-tl {
+      position: absolute;
+      top: -10px; left: -40px;
+      width: 280px;
+      opacity: 0.5;
+      animation: float 9s ease-in-out infinite;
+    }
+    .hero-lily-tr {
+      position: absolute;
+      top: 20px; right: -50px;
+      width: 260px;
+      opacity: 0.45;
+      animation: floatReverse 8s ease-in-out infinite;
+    }
+    .hero-lily-bl {
+      position: absolute;
+      bottom: 60px; left: -30px;
+      width: 220px;
+      opacity: 0.4;
+      animation: float 10s ease-in-out infinite 1s;
+    }
+    .hero-lily-br {
+      position: absolute;
+      bottom: 40px; right: -40px;
+      width: 240px;
+      opacity: 0.45;
+      animation: floatSlow 7s ease-in-out infinite;
     }
 
     .botanical-top {
@@ -74,7 +380,6 @@
       animation: float 8s ease-in-out infinite;
       pointer-events: none;
     }
-
     .botanical-bottom {
       position: absolute;
       bottom: -20px; right: -20px;
@@ -83,11 +388,6 @@
       transform: rotate(180deg);
       animation: float 8s ease-in-out infinite reverse;
       pointer-events: none;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      50% { transform: translate(5px, 10px) rotate(2deg); }
     }
 
     .hero-content {
@@ -99,13 +399,7 @@
       margin-top: -3rem;
     }
 
-    .hero-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
+    .hero-label { font-size: 0.75rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; }
 
     .gold-divider {
       display: flex;
@@ -116,18 +410,8 @@
       width: 100%;
       max-width: 300px;
     }
-    .gold-divider::before, .gold-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-    }
-    .gold-divider .diamond {
-      width: 6px; height: 6px;
-      background: var(--gold);
-      transform: rotate(45deg);
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-    }
+    .gold-divider::before, .gold-divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .gold-divider .diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
 
     .hero-names {
       font-size: clamp(4.5rem, 14vw, 8rem);
@@ -137,22 +421,8 @@
       letter-spacing: -0.02em;
       text-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-
-    .hero-names .and {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      font-style: italic;
-      color: var(--gold);
-      display: block;
-      margin: -0.5rem 0;
-    }
-
-    .hero-date {
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      color: var(--gold-pale);
-      margin-top: 1.5rem;
-      text-transform: uppercase;
-    }
+    .hero-names .and { font-size: clamp(2.5rem, 8vw, 4rem); font-style: italic; color: var(--gold); display: block; margin: -0.5rem 0; }
+    .hero-date { font-size: 0.9rem; letter-spacing: 0.3em; color: var(--gold-pale); margin-top: 1.5rem; text-transform: uppercase; }
 
     .scroll-indicator {
       position: absolute;
@@ -164,37 +434,14 @@
       align-items: center;
       gap: 0.8rem;
       opacity: 0.8;
-      transition: opacity 0.3s ease;
+      z-index: 10;
     }
-    .scroll-indicator:hover { opacity: 1; }
-    .scroll-indicator span {
-      font-size: 0.65rem;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-    .mouse {
-      width: 20px; height: 32px;
-      border: 1px solid var(--gold);
-      border-radius: 12px;
-      position: relative;
-    }
-    .mouse::before {
-      content: '';
-      position: absolute;
-      top: 6px; left: 50%;
-      transform: translateX(-50%);
-      width: 2px; height: 6px;
-      background: var(--gold);
-      border-radius: 2px;
-      animation: scroll 1.5s infinite;
-    }
-    @keyframes scroll {
-      0% { transform: translate(-50%, 0); opacity: 1; }
-      100% { transform: translate(-50%, 10px); opacity: 0; }
-    }
+    .scroll-indicator span { font-size: 0.65rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; }
+    .mouse { width: 20px; height: 32px; border: 1px solid var(--gold); border-radius: 12px; position: relative; }
+    .mouse::before { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 2px; height: 6px; background: var(--gold); border-radius: 2px; animation: scroll 1.5s infinite; }
+    @keyframes scroll { 0% { transform: translate(-50%, 0); opacity: 1; } 100% { transform: translate(-50%, 10px); opacity: 0; } }
 
-    /* ─── GLOBAL SECTION LAYOUT ─── */
+    /* ─── GLOBAL SECTIONS ─── */
     section {
       padding: 6rem 2rem;
       max-width: 900px;
@@ -203,320 +450,494 @@
       position: relative;
     }
 
-    .section-tag {
-      font-size: 0.75rem;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: inline-block;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      padding-bottom: 0.5rem;
-    }
+    .section-tag { font-size: 0.75rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; display: inline-block; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 0.5rem; }
+    h2 { font-size: clamp(2.5rem, 6vw, 3.8rem); font-weight: 400; color: var(--gold-light); line-height: 1.2; margin-bottom: 1.5rem; }
+    p.body-text { font-size: 1.05rem; line-height: 2; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
 
-    h2 {
-      font-size: clamp(2.5rem, 6vw, 3.8rem);
-      font-weight: 400;
-      color: var(--gold-light);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-
-    p.body-text {
-      font-size: 1.05rem;
-      line-height: 2;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* ─── QUOTE SECTION ─── */
+    /* ─── QUOTE SECTION with lily ─── */
     .quote-section {
       background: linear-gradient(180deg, var(--dark-green) 0%, var(--mid-green) 50%, var(--dark-green) 100%);
-      padding: 7rem 2rem;
-    }
-    
-    blockquote {
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--gold-pale);
-      line-height: 1.6;
-      max-width: 750px;
-      margin: 0 auto 2rem;
-    }
-
-    .quote-source {
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-
-    /* ─── COUPLE SECTION ─── */
-    .couple-grid {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 3rem;
-      margin-top: 4rem;
-    }
-
-    .person {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .person-photo {
-      width: 140px; height: 180px;
-      border-radius: 90px 90px 0 0; /* Elegant Arch */
-      border: 1px solid var(--gold);
-      padding: 6px;
-      margin-bottom: 1.5rem;
+      padding: 8rem 2rem;
       position: relative;
-    }
-    
-    .person-photo-inner {
-      width: 100%; height: 100%;
-      border-radius: 84px 84px 0 0;
-      background: var(--mid-green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      color: var(--gold);
       overflow: hidden;
     }
 
-    .person-name {
-      font-size: 2rem;
-      font-weight: 400;
-      color: var(--gold-light);
-      margin-bottom: 0.8rem;
+    .quote-lily-l {
+      position: absolute;
+      left: -20px; top: 50%;
+      transform: translateY(-60%);
+      width: 160px;
+      opacity: 0.35;
+      animation: float 8s ease-in-out infinite;
+    }
+    .quote-lily-r {
+      position: absolute;
+      right: -25px; top: 50%;
+      transform: translateY(-40%) scaleX(-1);
+      width: 160px;
+      opacity: 0.35;
+      animation: float 9s ease-in-out infinite reverse;
     }
 
-    .person-parents {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
+    blockquote { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 300; font-style: italic; color: var(--gold-pale); line-height: 1.6; max-width: 750px; margin: 0 auto 2rem; position: relative; z-index: 2; }
+    .quote-source { font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; position: relative; z-index: 2; }
 
-    .heart-divider {
-      font-size: 2.5rem;
-      color: var(--gold);
-      font-style: italic;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-    }
-
-    /* ─── EVENTS SECTION ─── */
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-
-    .event-card {
-      background: var(--mid-green);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      border-radius: 150px 150px 12px 12px; /* Arch shape */
-      padding: 5rem 2rem 3rem;
+    /* ─── COUPLE SECTION ─── */
+    .couple-section-wrapper {
       position: relative;
-      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-    }
-    
-    .event-card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(212, 175, 55, 0.6);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      overflow: hidden;
     }
 
-    .event-icon {
-      width: 48px; height: 48px;
-      margin: 0 auto 1.5rem;
-      color: var(--gold);
+    .couple-lily-tl {
+      position: absolute;
+      top: 0; left: -20px;
+      width: 180px;
+      opacity: 0.3;
+      animation: float 9s ease-in-out infinite 0.5s;
+    }
+    .couple-lily-tr {
+      position: absolute;
+      top: 20px; right: -20px;
+      width: 170px;
+      opacity: 0.3;
+      animation: floatReverse 8s ease-in-out infinite;
+    }
+    .couple-lily-bl {
+      position: absolute;
+      bottom: 20px; left: -10px;
+      width: 160px;
+      opacity: 0.25;
+      animation: floatSlow 11s ease-in-out infinite;
+    }
+    .couple-lily-br {
+      position: absolute;
+      bottom: 0; right: -15px;
+      width: 175px;
+      opacity: 0.3;
+      animation: float 7.5s ease-in-out infinite 1s;
     }
 
-    .event-name {
-      font-size: 0.85rem;
-      letter-spacing: 0.3em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+    .couple-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 3rem; margin-top: 4rem; }
+    .person { display: flex; flex-direction: column; align-items: center; }
+    .person-photo { width: 140px; height: 180px; border-radius: 90px 90px 0 0; border: 1px solid var(--gold); padding: 6px; margin-bottom: 1.5rem; }
+    .person-photo-inner { width: 100%; height: 100%; border-radius: 84px 84px 0 0; background: var(--mid-green); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--gold); overflow: hidden; }
+    .person-photo-inner img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .person-name { font-size: 2rem; font-weight: 400; color: var(--gold-light); margin-bottom: 0.8rem; }
+    .person-parents { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+    .heart-divider { font-size: 2.5rem; color: var(--gold); font-style: italic; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+
+    /* ─── EVENTS ─── */
+    .events-section-wrapper {
+      position: relative;
+      overflow: hidden;
     }
 
-    .event-time {
-      font-size: 2.5rem;
-      font-weight: 400;
-      color: var(--gold-light);
-      margin-bottom: 0.5rem;
-      line-height: 1;
+    .events-lily-l {
+      position: absolute;
+      left: -30px; bottom: 80px;
+      width: 190px;
+      opacity: 0.28;
+      animation: float 9s ease-in-out infinite;
+    }
+    .events-lily-r {
+      position: absolute;
+      right: -30px; top: 80px;
+      width: 190px;
+      opacity: 0.28;
+      animation: floatReverse 10s ease-in-out infinite;
     }
 
-    .event-date {
-      font-size: 0.95rem;
-      letter-spacing: 0.1em;
-      color: var(--gold-pale);
-      margin-bottom: 1.5rem;
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 4rem; }
+    .event-card { background: var(--mid-green); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 150px 150px 12px 12px; padding: 5rem 2rem 3rem; position: relative; transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; overflow: hidden; }
+    .event-card:hover { transform: translateY(-10px); border-color: rgba(212, 175, 55, 0.6); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+
+    /* Tiny lily on each event card */
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: -5px; right: 10px;
+      width: 60px; height: 80px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f3e5ab' stop-opacity='0.3'/%3E%3Cstop offset='100%25' stop-color='%23d4af37' stop-opacity='0.2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='50' cy='30' rx='12' ry='25' fill='url(%23g)' transform='rotate(-30 50 30)'/%3E%3Cellipse cx='70' cy='40' rx='12' ry='25' fill='url(%23g)' transform='rotate(30 70 40)'/%3E%3Cellipse cx='30' cy='40' rx='12' ry='25' fill='url(%23g)' transform='rotate(-60 30 40)'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%23d4af37' opacity='0.4'/%3E%3Cpath d='M50 56 Q48 90 45 130' stroke='%23d4af37' stroke-width='1.5' fill='none' opacity='0.4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: 0.6;
+      pointer-events: none;
     }
 
-    .event-desc {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
-      padding-top: 1.5rem;
-      margin-top: 1.5rem;
-    }
+    .event-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--gold); }
+    .event-name { font-size: 0.85rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+    .event-time { font-size: 2.5rem; font-weight: 400; color: var(--gold-light); margin-bottom: 0.5rem; line-height: 1; }
+    .event-date { font-size: 0.95rem; letter-spacing: 0.1em; color: var(--gold-pale); margin-bottom: 1.5rem; }
+    .event-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 1.5rem; margin-top: 1.5rem; }
 
     /* ─── COUNTDOWN ─── */
-    .countdown-wrapper {
-      background: rgba(26, 45, 29, 0.6);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 16px;
-      padding: 3rem 2rem;
-      margin-top: 3rem;
-      backdrop-filter: blur(10px);
+    .countdown-section-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    .countdown-lily-l {
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 140px;
+      opacity: 0.25;
+      animation: float 8s ease-in-out infinite;
+    }
+    .countdown-lily-r {
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%) scaleX(-1);
+      width: 140px;
+      opacity: 0.25;
+      animation: float 9s ease-in-out infinite reverse;
     }
 
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: clamp(1rem, 4vw, 3rem);
-      flex-wrap: wrap;
-    }
+    .countdown-wrapper { background: rgba(26, 45, 29, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 3rem 2rem; margin-top: 3rem; backdrop-filter: blur(10px); }
+    .countdown { display: flex; justify-content: center; gap: clamp(1rem, 4vw, 3rem); flex-wrap: wrap; }
+    .countdown-item { text-align: center; min-width: 80px; }
+    .countdown-num { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; color: var(--gold-light); line-height: 1; display: block; margin-bottom: 0.5rem; }
+    .countdown-label { font-size: 0.7rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; }
 
-    .countdown-item { 
-      text-align: center;
-      min-width: 80px;
-    }
-
-    .countdown-num {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 300;
-      color: var(--gold-light);
-      line-height: 1;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .countdown-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-
-    /* ─── VENUE SECTION ─── */
+    /* ─── VENUE ─── */
     .venue-section {
       background: var(--light-green);
       padding: 6rem 2rem;
       text-align: center;
       border-top: 1px solid rgba(212, 175, 55, 0.15);
       border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      position: relative;
+      overflow: hidden;
     }
 
-    .venue-name {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 400;
-      color: var(--gold-light);
-      margin: 1rem 0;
+    .venue-lily-tl {
+      position: absolute;
+      top: -10px; left: -30px;
+      width: 200px;
+      opacity: 0.3;
+      animation: float 8s ease-in-out infinite;
+    }
+    .venue-lily-tr {
+      position: absolute;
+      top: 10px; right: -30px;
+      width: 180px;
+      opacity: 0.3;
+      animation: floatReverse 9s ease-in-out infinite;
+    }
+    .venue-lily-bl {
+      position: absolute;
+      bottom: -20px; left: 20px;
+      width: 170px;
+      opacity: 0.25;
+      animation: floatSlow 10s ease-in-out infinite;
+    }
+    .venue-lily-br {
+      position: absolute;
+      bottom: -10px; right: 10px;
+      width: 190px;
+      opacity: 0.28;
+      animation: float 7s ease-in-out infinite 0.5s;
     }
 
-    .venue-address {
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      line-height: 1.8;
+    .venue-name { font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; color: var(--gold-light); margin: 1rem 0; }
+    .venue-address { font-size: 1rem; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.8; }
+    .map-btn { display: inline-block; font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold); background: transparent; padding: 1rem 2.5rem; border: 1px solid var(--gold); cursor: pointer; text-decoration: none; transition: all 0.4s ease; text-transform: uppercase; border-radius: 2px; position: relative; z-index: 2; }
+    .map-btn:hover { background: var(--gold); color: var(--dark-green); letter-spacing: 0.4em; }
+
+    .qr-code-container { margin: 3rem auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; position: relative; z-index: 2; }
+    .qr-code-image { width: 200px; height: 200px; border: 3px solid var(--gold); border-radius: 12px; padding: 12px; background: white; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); transition: transform 0.4s ease; }
+    .qr-code-image:hover { transform: scale(1.05); }
+    .qr-label { font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+
+    /* ─── WEDDING GIFT ─── */
+    .wedding-gift-section {
+      background: var(--light-green);
+      padding: 6rem 2rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      position: relative;
+      overflow: hidden;
     }
 
-    .map-btn {
-      display: inline-block;
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      color: var(--gold);
-      background: transparent;
-      padding: 1rem 2.5rem;
-      border: 1px solid var(--gold);
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.4s ease;
-      text-transform: uppercase;
-      border-radius: 2px;
+    .gift-lily-l {
+      position: absolute;
+      left: -20px; top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      opacity: 0.28;
+      animation: float 8.5s ease-in-out infinite;
     }
-    
-    .map-btn:hover { 
-      background: var(--gold);
-      color: var(--dark-green);
-      letter-spacing: 0.4em;
+    .gift-lily-r {
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%) scaleX(-1);
+      width: 160px;
+      opacity: 0.28;
+      animation: float 9.5s ease-in-out infinite reverse;
     }
 
-    /* ─── FOOTER ─── */
+    .gift-options { display: flex; justify-content: center; align-items: center; margin-top: 4rem; }
+    .gift-card { background: rgba(17, 32, 20, 0.3); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; transition: all 0.4s ease; backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+    .gift-card:hover { transform: translateY(-8px); border-color: rgba(212, 175, 55, 0.6); background: rgba(17, 32, 20, 0.6); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); }
+    .gift-icon { width: 56px; height: 56px; margin: 0 auto 1.5rem; color: var(--gold); display: flex; align-items: center; justify-content: center; }
+    .gift-icon svg { width: 100%; height: 100%; }
+    .gift-image { width: calc(100% + 4rem); height: 180px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -2.5rem -2rem 1.5rem -2rem; }
+    .gift-title { font-size: 1.4rem; color: var(--gold-light); margin-bottom: 0.8rem; font-weight: 400; }
+    .gift-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── LOVE STORY ─── */
+    .love-story-section {
+      background: linear-gradient(180deg, var(--dark-green) 0%, var(--mid-green) 50%, var(--dark-green) 100%);
+      padding: 7rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .love-story-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08), transparent 40%),
+                  radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.08), transparent 40%);
+      pointer-events: none;
+    }
+
+    /* Large corner lily decorations */
+    .lily-flower { position: absolute; opacity: 0.6; pointer-events: none; }
+    .lily-top-left { top: 50px; left: -30px; width: 150px; animation: float 6s ease-in-out infinite; }
+    .lily-top-right { top: 100px; right: -40px; width: 180px; animation: float 7s ease-in-out infinite reverse; }
+    .lily-bottom-left { bottom: 80px; left: -50px; width: 160px; animation: float 8s ease-in-out infinite; }
+    .lily-bottom-right { bottom: 50px; right: -60px; width: 170px; animation: float 6.5s ease-in-out infinite reverse; }
+
+    /* Extra scattered lily accent for love story */
+    .lily-mid-left {
+      position: absolute;
+      left: -10px; top: 50%;
+      width: 120px;
+      opacity: 0.35;
+      animation: floatSlow 11s ease-in-out infinite 2s;
+    }
+    .lily-mid-right {
+      position: absolute;
+      right: -10px; top: 45%;
+      width: 130px;
+      opacity: 0.35;
+      animation: floatSlow 10s ease-in-out infinite;
+      transform: scaleX(-1);
+    }
+
+    .love-story-content { max-width: 750px; margin: 0 auto; position: relative; z-index: 2; }
+    .story-timeline { display: flex; flex-direction: column; gap: 4rem; margin-top: 3rem; }
+    .story-entry { position: relative; padding-left: 50px; opacity: 0; animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+    .story-entry:nth-child(1) { animation-delay: 0.2s; }
+    .story-entry:nth-child(2) { animation-delay: 0.4s; }
+    .story-entry:nth-child(3) { animation-delay: 0.6s; }
+    .story-entry::before { content: ''; position: absolute; left: 10px; top: 0; width: 20px; height: 20px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
+    .story-entry::after { content: ''; position: absolute; left: 19px; top: 20px; width: 2px; height: 100%; background: linear-gradient(to bottom, var(--gold), transparent); opacity: 0.3; }
+    .story-entry:last-child::after { display: none; }
+    .story-date { font-size: 1.1rem; font-weight: 600; color: var(--gold); margin-bottom: 0.8rem; letter-spacing: 0.1em; font-family: 'Cormorant Garamond', serif; }
+    .story-text { font-size: 1rem; line-height: 1.9; color: var(--text-muted); font-style: italic; margin: 0; }
+    .story-text strong { color: var(--gold-light); font-style: normal; }
+
     footer {
       background: var(--dark-green);
       padding: 4rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .footer-names {
-      font-size: 2.5rem;
-      font-style: italic;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
+    /* Footer lily decorations */
+    .footer-lily-l {
+      position: absolute;
+      bottom: -10px; left: -20px;
+      width: 180px;
+      opacity: 0.3;
+      animation: float 8s ease-in-out infinite;
+    }
+    .footer-lily-r {
+      position: absolute;
+      bottom: -10px; right: -20px;
+      width: 180px;
+      opacity: 0.3;
+      animation: floatReverse 9s ease-in-out infinite;
     }
 
-    .footer-note {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      margin-top: 1rem;
-    }
+    .footer-names { font-size: 2.5rem; font-style: italic; color: var(--gold); margin-bottom: 0.5rem; }
+    .footer-logo { width: 70px; height: 70px; margin-bottom: 1.5rem; opacity: 0.85; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+    .footer-note { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 0.1em; margin-top: 1rem; position: relative; z-index: 2; }
 
     /* ─── ANIMATIONS ─── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                  transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Delay utilities for staggered animations */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
     .delay-100 { transition-delay: 100ms; }
     .delay-200 { transition-delay: 200ms; }
     .delay-300 { transition-delay: 300ms; }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
-      .couple-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .heart-divider { 
-        transform: rotate(90deg); 
-      }
-      section {
-        padding: 4rem 1.5rem;
-      }
+      .couple-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .heart-divider { transform: rotate(90deg); }
+      section { padding: 4rem 1.5rem; }
       .gold-divider { max-width: 200px; }
     }
   </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- ─── LILY SVG TEMPLATES (reusable inline) ─── -->
+<!-- We'll use inline SVG snippets throughout -->
+
+<!-- ─── ENVELOPE OVERLAY ─── -->
+<div id="envelope-screen" class="envelope-screen">
+
+  <!-- Lily decorations in envelope screen -->
+  <svg class="envelope-lily envelope-lily-tl" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="envLilyG1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.8"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.6"/>
+      </linearGradient>
+    </defs>
+    <path d="M100 280 Q98 240 95 200 Q92 160 88 120 Q84 80 80 40" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M95 200 Q70 190 50 180" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M92 160 Q68 148 48 140" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.3"/>
+    <!-- Flower 1 -->
+    <ellipse cx="80" cy="40" rx="14" ry="28" fill="url(#envLilyG1)" transform="rotate(-40 80 40)"/>
+    <ellipse cx="105" cy="38" rx="14" ry="28" fill="url(#envLilyG1)" transform="rotate(40 105 38)"/>
+    <ellipse cx="72" cy="62" rx="13" ry="26" fill="url(#envLilyG1)" transform="rotate(-80 72 62)"/>
+    <ellipse cx="112" cy="60" rx="13" ry="26" fill="url(#envLilyG1)" transform="rotate(80 112 60)"/>
+    <ellipse cx="65" cy="85" rx="12" ry="24" fill="url(#envLilyG1)" transform="rotate(-120 65 85)"/>
+    <ellipse cx="118" cy="82" rx="12" ry="24" fill="url(#envLilyG1)" transform="rotate(120 118 82)"/>
+    <circle cx="90" cy="65" r="7" fill="#d4af37" opacity="0.9"/>
+    <line x1="90" y1="58" x2="87" y2="48" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+    <line x1="90" y1="58" x2="93" y2="48" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+    <line x1="90" y1="58" x2="90" y2="46" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+    <!-- Flower 2 (smaller) -->
+    <ellipse cx="55" cy="180" rx="10" ry="20" fill="url(#envLilyG1)" transform="rotate(-50 55 180)" opacity="0.7"/>
+    <ellipse cx="75" cy="178" rx="10" ry="20" fill="url(#envLilyG1)" transform="rotate(50 75 178)" opacity="0.7"/>
+    <ellipse cx="48" cy="195" rx="9" ry="18" fill="url(#envLilyG1)" transform="rotate(-90 48 195)" opacity="0.7"/>
+    <ellipse cx="80" cy="193" rx="9" ry="18" fill="url(#envLilyG1)" transform="rotate(90 80 193)" opacity="0.7"/>
+    <circle cx="63" cy="190" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="envelope-lily envelope-lily-tr" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="envLilyG2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.7"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.5"/>
+      </linearGradient>
+    </defs>
+    <path d="M100 280 Q102 240 105 200 Q108 160 112 120 Q116 80 120 40" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <ellipse cx="120" cy="40" rx="14" ry="28" fill="url(#envLilyG2)" transform="rotate(-40 120 40)"/>
+    <ellipse cx="95" cy="38" rx="14" ry="28" fill="url(#envLilyG2)" transform="rotate(40 95 38)"/>
+    <ellipse cx="128" cy="62" rx="13" ry="26" fill="url(#envLilyG2)" transform="rotate(-80 128 62)"/>
+    <ellipse cx="88" cy="60" rx="13" ry="26" fill="url(#envLilyG2)" transform="rotate(80 88 60)"/>
+    <ellipse cx="135" cy="85" rx="12" ry="24" fill="url(#envLilyG2)" transform="rotate(-120 135 85)"/>
+    <ellipse cx="82" cy="82" rx="12" ry="24" fill="url(#envLilyG2)" transform="rotate(120 82 82)"/>
+    <circle cx="110" cy="65" r="7" fill="#d4af37" opacity="0.9"/>
+  </svg>
+
+  <svg class="envelope-lily envelope-lily-bl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="envLilyG3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/>
+      </linearGradient>
+    </defs>
+    <path d="M30 200 Q40 170 60 140 Q80 110 100 80" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="95" cy="80" rx="13" ry="26" fill="url(#envLilyG3)" transform="rotate(-40 95 80)"/>
+    <ellipse cx="115" cy="78" rx="13" ry="26" fill="url(#envLilyG3)" transform="rotate(40 115 78)"/>
+    <ellipse cx="88" cy="100" rx="12" ry="24" fill="url(#envLilyG3)" transform="rotate(-80 88 100)"/>
+    <ellipse cx="120" cy="98" rx="12" ry="24" fill="url(#envLilyG3)" transform="rotate(80 120 98)"/>
+    <circle cx="103" cy="95" r="6" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="envelope-lily envelope-lily-br" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="envLilyG4" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.65"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.45"/>
+      </linearGradient>
+    </defs>
+    <path d="M170 200 Q160 170 140 140 Q120 110 100 80" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="105" cy="80" rx="13" ry="26" fill="url(#envLilyG4)" transform="rotate(-40 105 80)"/>
+    <ellipse cx="85" cy="78" rx="13" ry="26" fill="url(#envLilyG4)" transform="rotate(40 85 78)"/>
+    <ellipse cx="112" cy="100" rx="12" ry="24" fill="url(#envLilyG4)" transform="rotate(-80 112 100)"/>
+    <ellipse cx="80" cy="98" rx="12" ry="24" fill="url(#envLilyG4)" transform="rotate(80 80 98)"/>
+    <circle cx="97" cy="95" r="6" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <div class="envelope-wrapper">
+    <div class="envelope-container" id="envelope">
+      <div class="envelope-back"></div>
+      
+      <div class="letter" id="letter">
+        <div class="letter-inner">
+          <h2 class="font-serif">Haedar & Astuti</h2>
+          <p class="font-display">27 JUNI 2026</p>
+          <div class="gold-divider" style="max-width: 80px; margin: 1rem auto;"><span class="diamond"></span></div>
+          <p class="font-serif" style="font-size: 1rem; color: var(--dark-green); font-style: italic;">Turut Mengundang...</p>
+        </div>
+      </div>
+
+      <svg class="envelope-front" viewBox="0 0 340 230">
+        <defs>
+          <filter id="shadow-bottom" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="-6" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+          </filter>
+          <linearGradient id="grad-left" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2d4a32"/>
+            <stop offset="50%" stop-color="#253f29"/>
+            <stop offset="100%" stop-color="#1e3321"/>
+          </linearGradient>
+          <linearGradient id="grad-right" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#2d4a32"/>
+            <stop offset="50%" stop-color="#253f29"/>
+            <stop offset="100%" stop-color="#1e3321"/>
+          </linearGradient>
+          <linearGradient id="grad-bottom" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#324932"/>
+            <stop offset="50%" stop-color="#2c4a30"/>
+            <stop offset="100%" stop-color="#1a2d1d"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,0 L160,115 L0,230 Z" fill="url(#grad-left)" stroke="rgba(212,175,55,0.1)" stroke-width="1"/>
+        <path d="M340,0 L180,115 L340,230 Z" fill="url(#grad-right)" stroke="rgba(212,175,55,0.1)" stroke-width="1"/>
+        <path d="M0,230 L170,115 L340,230 Z" fill="url(#grad-bottom)" filter="url(#shadow-bottom)" stroke="rgba(212,175,55,0.1)" stroke-width="1" stroke-linejoin="round"/>
+      </svg>
+
+      <div class="top-flap-wrapper" id="top-flap">
+        <svg viewBox="0 0 340 230">
+          <defs>
+            <filter id="shadow-top">
+              <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+            </filter>
+            <linearGradient id="grad-top" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#3a6347"/>
+              <stop offset="40%" stop-color="#325437"/>
+              <stop offset="100%" stop-color="#213824"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,0 L170,130 L340,0 Z" fill="url(#grad-top)" filter="url(#shadow-top)" stroke="rgba(212,175,55,0.1)" stroke-width="1" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      
+      <div class="wax-seal font-serif" id="wax-seal">
+        <div class="wax-seal-inner">H&A</div>
+      </div>
+    </div>
+
+    <div class="envelope-text">
+      <img src="public/assets/logo.jpeg" alt="Logo" class="envelope-logo">
+      <p class="font-display" style="color: var(--gold); font-size: 0.8rem; letter-spacing: 0.2em;">Kpd Bpk/Ibu/Saudara/i</p>
+      <h3 class="font-serif">Tamu Undangan</h3>
+      <button class="open-btn font-display" onclick="openEnvelope()">Buka Undangan</button>
+    </div>
+  </div>
+</div>
 
 <!-- ─── HERO ─── -->
 <header class="hero">
-  <!-- Botanical Decorations -->
   <svg class="botanical-top" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 290 Q60 180 150 120 Q200 80 260 20" stroke="#d4af37" stroke-width="0.8" fill="none"/>
     <path d="M30 270 Q50 200 100 160" stroke="#d4af37" stroke-width="0.5" fill="none"/>
@@ -537,16 +958,100 @@
     <circle cx="155" cy="60" r="4" fill="rgba(212,175,55,0.3)"/>
   </svg>
 
+  <!-- Hero lily decorations -->
+  <svg class="hero-lily-tl" viewBox="0 0 220 320" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="heroLilyG1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.7"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.5"/>
+      </linearGradient>
+    </defs>
+    <path d="M110 320 Q108 270 105 220 Q100 170 95 120 Q88 70 80 20" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M100 220 Q72 210 50 200" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.35"/>
+    <path d="M96 170 Q68 158 45 148" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.3"/>
+    <!-- Top flower -->
+    <ellipse cx="80" cy="20" rx="15" ry="30" fill="url(#heroLilyG1)" transform="rotate(-35 80 20)"/>
+    <ellipse cx="108" cy="18" rx="15" ry="30" fill="url(#heroLilyG1)" transform="rotate(35 108 18)"/>
+    <ellipse cx="70" cy="48" rx="14" ry="28" fill="url(#heroLilyG1)" transform="rotate(-75 70 48)"/>
+    <ellipse cx="116" cy="46" rx="14" ry="28" fill="url(#heroLilyG1)" transform="rotate(75 116 46)"/>
+    <ellipse cx="62" cy="76" rx="13" ry="25" fill="url(#heroLilyG1)" transform="rotate(-115 62 76)"/>
+    <ellipse cx="122" cy="73" rx="13" ry="25" fill="url(#heroLilyG1)" transform="rotate(115 122 73)"/>
+    <circle cx="92" cy="52" r="8" fill="#d4af37" opacity="0.9"/>
+    <line x1="92" y1="44" x2="89" y2="32" stroke="#d4af37" stroke-width="1" opacity="0.7"/>
+    <line x1="92" y1="44" x2="95" y2="32" stroke="#d4af37" stroke-width="1" opacity="0.7"/>
+    <line x1="92" y1="44" x2="92" y2="30" stroke="#d4af37" stroke-width="1" opacity="0.7"/>
+    <!-- Mid flower -->
+    <ellipse cx="52" cy="200" rx="11" ry="22" fill="url(#heroLilyG1)" transform="rotate(-45 52 200)" opacity="0.7"/>
+    <ellipse cx="72" cy="198" rx="11" ry="22" fill="url(#heroLilyG1)" transform="rotate(45 72 198)" opacity="0.7"/>
+    <ellipse cx="44" cy="215" rx="10" ry="20" fill="url(#heroLilyG1)" transform="rotate(-85 44 215)" opacity="0.7"/>
+    <ellipse cx="78" cy="213" rx="10" ry="20" fill="url(#heroLilyG1)" transform="rotate(85 78 213)" opacity="0.7"/>
+    <circle cx="60" cy="210" r="5" fill="#d4af37" opacity="0.8"/>
+    <!-- Buds -->
+    <ellipse cx="50" cy="148" rx="5" ry="12" fill="url(#heroLilyG1)" opacity="0.6" transform="rotate(-20 50 148)"/>
+    <ellipse cx="45" cy="200" rx="4" ry="10" fill="url(#heroLilyG1)" opacity="0.5" transform="rotate(15 45 200)"/>
+  </svg>
+
+  <svg class="hero-lily-tr" viewBox="0 0 220 320" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="heroLilyG2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.65"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.45"/>
+      </linearGradient>
+    </defs>
+    <path d="M110 320 Q112 270 115 220 Q120 170 125 120 Q132 70 140 20" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M120 220 Q148 210 170 200" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.35"/>
+    <ellipse cx="140" cy="20" rx="15" ry="30" fill="url(#heroLilyG2)" transform="rotate(-35 140 20)"/>
+    <ellipse cx="112" cy="18" rx="15" ry="30" fill="url(#heroLilyG2)" transform="rotate(35 112 18)"/>
+    <ellipse cx="150" cy="48" rx="14" ry="28" fill="url(#heroLilyG2)" transform="rotate(-75 150 48)"/>
+    <ellipse cx="104" cy="46" rx="14" ry="28" fill="url(#heroLilyG2)" transform="rotate(75 104 46)"/>
+    <ellipse cx="158" cy="76" rx="13" ry="25" fill="url(#heroLilyG2)" transform="rotate(-115 158 76)"/>
+    <ellipse cx="98" cy="73" rx="13" ry="25" fill="url(#heroLilyG2)" transform="rotate(115 98 73)"/>
+    <circle cx="128" cy="52" r="8" fill="#d4af37" opacity="0.9"/>
+    <ellipse cx="168" cy="200" rx="11" ry="22" fill="url(#heroLilyG2)" transform="rotate(-45 168 200)" opacity="0.7"/>
+    <ellipse cx="148" cy="198" rx="11" ry="22" fill="url(#heroLilyG2)" transform="rotate(45 148 198)" opacity="0.7"/>
+    <circle cx="160" cy="210" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="hero-lily-bl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="heroLilyG3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/>
+      </linearGradient>
+    </defs>
+    <path d="M20 200 Q35 170 60 145 Q85 120 105 90" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="100" cy="90" rx="12" ry="24" fill="url(#heroLilyG3)" transform="rotate(-40 100 90)"/>
+    <ellipse cx="118" cy="88" rx="12" ry="24" fill="url(#heroLilyG3)" transform="rotate(40 118 88)"/>
+    <ellipse cx="93" cy="108" rx="11" ry="22" fill="url(#heroLilyG3)" transform="rotate(-80 93 108)"/>
+    <ellipse cx="124" cy="106" rx="11" ry="22" fill="url(#heroLilyG3)" transform="rotate(80 124 106)"/>
+    <circle cx="108" cy="103" r="6" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="hero-lily-br" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="heroLilyG4" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/>
+      </linearGradient>
+    </defs>
+    <path d="M180 200 Q165 170 140 145 Q115 120 95 90" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="100" cy="90" rx="12" ry="24" fill="url(#heroLilyG4)" transform="rotate(-40 100 90)"/>
+    <ellipse cx="82" cy="88" rx="12" ry="24" fill="url(#heroLilyG4)" transform="rotate(40 82 88)"/>
+    <ellipse cx="107" cy="108" rx="11" ry="22" fill="url(#heroLilyG4)" transform="rotate(-80 107 108)"/>
+    <ellipse cx="76" cy="106" rx="11" ry="22" fill="url(#heroLilyG4)" transform="rotate(80 76 106)"/>
+    <circle cx="92" cy="103" r="6" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
   <div class="hero-content fade-up">
     <p class="hero-label font-display">Undangan Pernikahan</p>
     <div class="gold-divider"><span class="diamond"></span></div>
     <h1 class="hero-names font-serif">
-      Rafi
+      Haedar
       <span class="and">&amp;</span>
-      Adinda
+      Astuti
     </h1>
     <div class="gold-divider"><span class="diamond"></span></div>
-    <p class="hero-date font-display">Sabtu, 14 Juni 2025</p>
+    <p class="hero-date font-display">Kamis, 27 Juni 2026</p>
   </div>
 
   <div class="scroll-indicator">
@@ -555,8 +1060,47 @@
   </div>
 </header>
 
-<!-- ─── OPENING QUOTE ─── -->
+<!-- ─── QUOTE ─── -->
 <section class="quote-section">
+  <!-- Lily accents -->
+  <svg class="quote-lily-l" viewBox="0 0 120 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="qLilyG" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/>
+      </linearGradient>
+    </defs>
+    <path d="M60 280 Q58 230 55 180 Q52 130 48 80 Q44 40 40 10" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.45"/>
+    <path d="M52 180 Q30 170 10 162" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.3"/>
+    <ellipse cx="40" cy="10" rx="12" ry="24" fill="url(#qLilyG)" transform="rotate(-35 40 10)"/>
+    <ellipse cx="62" cy="8" rx="12" ry="24" fill="url(#qLilyG)" transform="rotate(35 62 8)"/>
+    <ellipse cx="32" cy="35" rx="11" ry="22" fill="url(#qLilyG)" transform="rotate(-75 32 35)"/>
+    <ellipse cx="68" cy="33" rx="11" ry="22" fill="url(#qLilyG)" transform="rotate(75 68 33)"/>
+    <ellipse cx="25" cy="60" rx="10" ry="20" fill="url(#qLilyG)" transform="rotate(-115 25 60)"/>
+    <ellipse cx="73" cy="57" rx="10" ry="20" fill="url(#qLilyG)" transform="rotate(115 73 57)"/>
+    <circle cx="48" cy="38" r="6" fill="#d4af37" opacity="0.9"/>
+    <ellipse cx="12" cy="162" rx="8" ry="17" fill="url(#qLilyG)" transform="rotate(-45 12 162)" opacity="0.7"/>
+    <ellipse cx="30" cy="160" rx="8" ry="17" fill="url(#qLilyG)" transform="rotate(45 30 160)" opacity="0.7"/>
+    <circle cx="20" cy="168" r="4" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="quote-lily-r" viewBox="0 0 120 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="qLilyG2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/>
+        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/>
+      </linearGradient>
+    </defs>
+    <path d="M60 280 Q62 230 65 180 Q68 130 72 80 Q76 40 80 10" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.45"/>
+    <ellipse cx="80" cy="10" rx="12" ry="24" fill="url(#qLilyG2)" transform="rotate(-35 80 10)"/>
+    <ellipse cx="58" cy="8" rx="12" ry="24" fill="url(#qLilyG2)" transform="rotate(35 58 8)"/>
+    <ellipse cx="88" cy="35" rx="11" ry="22" fill="url(#qLilyG2)" transform="rotate(-75 88 35)"/>
+    <ellipse cx="52" cy="33" rx="11" ry="22" fill="url(#qLilyG2)" transform="rotate(75 52 33)"/>
+    <ellipse cx="95" cy="60" rx="10" ry="20" fill="url(#qLilyG2)" transform="rotate(-115 95 60)"/>
+    <ellipse cx="47" cy="57" rx="10" ry="20" fill="url(#qLilyG2)" transform="rotate(115 47 57)"/>
+    <circle cx="72" cy="38" r="6" fill="#d4af37" opacity="0.9"/>
+  </svg>
+
   <div class="fade-up">
     <blockquote class="font-serif">
       "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
@@ -566,176 +1110,469 @@
 </section>
 
 <!-- ─── COUPLE ─── -->
-<section>
-  <div class="fade-up">
-    <span class="section-tag font-display">Mempelai</span>
-    <h2 class="font-serif">Dua Jiwa, Satu Tujuan</h2>
-    <p class="body-text">Maha Suci Allah yang telah menautkan dua hati dalam ikatan suci pernikahan. Kami memohon doa restu dari Bapak/Ibu/Saudara/i sekalian.</p>
-  </div>
-  
-  <div class="couple-grid">
-    <!-- Groom -->
-    <div class="person fade-up delay-100">
-      <div class="person-photo">
-        <div class="person-photo-inner font-serif">R</div>
-      </div>
-      <h3 class="person-name font-serif">Muhammad Rafi</h3>
-      <p class="person-parents">Putra dari<br>Bapak Ahmad Fauzan<br>&amp; Ibu Siti Rahayu</p>
+<div class="couple-section-wrapper">
+  <!-- Lily corner decorations -->
+  <svg class="couple-lily-tl" viewBox="0 0 150 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="cpLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/></linearGradient></defs>
+    <path d="M75 200 Q73 160 70 120 Q67 80 62 40" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="62" cy="40" rx="11" ry="22" fill="url(#cpLilyG1)" transform="rotate(-35 62 40)"/>
+    <ellipse cx="82" cy="38" rx="11" ry="22" fill="url(#cpLilyG1)" transform="rotate(35 82 38)"/>
+    <ellipse cx="55" cy="62" rx="10" ry="20" fill="url(#cpLilyG1)" transform="rotate(-75 55 62)"/>
+    <ellipse cx="88" cy="60" rx="10" ry="20" fill="url(#cpLilyG1)" transform="rotate(75 88 60)"/>
+    <circle cx="70" cy="55" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="couple-lily-tr" viewBox="0 0 150 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="cpLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M75 200 Q77 160 80 120 Q83 80 88 40" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="88" cy="40" rx="11" ry="22" fill="url(#cpLilyG2)" transform="rotate(-35 88 40)"/>
+    <ellipse cx="68" cy="38" rx="11" ry="22" fill="url(#cpLilyG2)" transform="rotate(35 68 38)"/>
+    <ellipse cx="95" cy="62" rx="10" ry="20" fill="url(#cpLilyG2)" transform="rotate(-75 95 62)"/>
+    <ellipse cx="62" cy="60" rx="10" ry="20" fill="url(#cpLilyG2)" transform="rotate(75 62 60)"/>
+    <circle cx="80" cy="55" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="couple-lily-bl" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="cpLilyG3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M15 150 Q30 120 55 95 Q80 72 100 50" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.38"/>
+    <ellipse cx="97" cy="50" rx="10" ry="20" fill="url(#cpLilyG3)" transform="rotate(-40 97 50)"/>
+    <ellipse cx="112" cy="48" rx="10" ry="20" fill="url(#cpLilyG3)" transform="rotate(40 112 48)"/>
+    <ellipse cx="91" cy="67" rx="9" ry="18" fill="url(#cpLilyG3)" transform="rotate(-80 91 67)"/>
+    <circle cx="103" cy="62" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="couple-lily-br" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="cpLilyG4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M135 150 Q120 120 95 95 Q70 72 50 50" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.38"/>
+    <ellipse cx="53" cy="50" rx="10" ry="20" fill="url(#cpLilyG4)" transform="rotate(-40 53 50)"/>
+    <ellipse cx="38" cy="48" rx="10" ry="20" fill="url(#cpLilyG4)" transform="rotate(40 38 48)"/>
+    <ellipse cx="59" cy="67" rx="9" ry="18" fill="url(#cpLilyG4)" transform="rotate(-80 59 67)"/>
+    <circle cx="47" cy="62" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <section>
+    <div class="fade-up">
+      <span class="section-tag font-display">Mempelai</span>
+      <h2 class="font-serif">Dua Jiwa, Satu Tujuan</h2>
+      <p class="body-text">Maha Suci Allah yang telah menautkan dua hati dalam ikatan suci pernikahan. Kami memohon doa restu dari Bapak/Ibu/Saudara/i sekalian.</p>
     </div>
-
-    <!-- Divider -->
-    <div class="heart-divider fade-up delay-200">&#10084;</div>
-
-    <!-- Bride -->
-    <div class="person fade-up delay-300">
-      <div class="person-photo">
-        <div class="person-photo-inner font-serif">A</div>
-      </div>
-      <h3 class="person-name font-serif">Adinda Putri</h3>
-      <p class="person-parents">Putri dari<br>Bapak Hendra Wijaya<br>&amp; Ibu Dewi Lestari</p>
-    </div>
-  </div>
-</section>
-
-<!-- ─── EVENTS ─── -->
-<section>
-  <div class="fade-up">
-    <span class="section-tag font-display">Rangkaian Acara</span>
-    <h2 class="font-serif">Hari Bahagia Kami</h2>
-    <p class="body-text">Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara kami.</p>
-  </div>
-
-  <div class="events-grid">
-    <!-- Akad -->
-    <div class="event-card fade-up delay-100">
-      <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      </svg>
-      <p class="event-name font-display">Akad Nikah</p>
-      <p class="event-time font-serif">08.00</p>
-      <p class="event-date font-sans">SABTU, 14 JUNI 2025</p>
-      <p class="event-desc">Prosesi ijab kabul yang sakral dan penuh berkah sebagai awal perjalanan hidup kami.</p>
-    </div>
-
-    <!-- Resepsi -->
-    <div class="event-card fade-up delay-200">
-      <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-        <path d="M16 13H8"></path>
-        <path d="M16 17H8"></path>
-        <path d="M10 9H8"></path>
-      </svg>
-      <p class="event-name font-display">Resepsi</p>
-      <p class="event-time font-serif">11.00 – 16.00</p>
-      <p class="event-date font-sans">SABTU, 14 JUNI 2025</p>
-      <p class="event-desc">Pesta pernikahan dan syukuran penuh suka cita bersama keluarga serta para sahabat.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ─── COUNTDOWN ─── -->
-<section>
-  <div class="fade-up">
-    <span class="section-tag font-display">Menuju Hari H</span>
-    <h2 class="font-serif">Menghitung Waktu</h2>
     
-    <div class="countdown-wrapper">
-      <div class="countdown" id="countdown">
-        <div class="countdown-item">
-          <span class="countdown-num font-serif" id="cd-days">--</span>
-          <span class="countdown-label font-display">Hari</span>
+    <div class="couple-grid">
+      <div class="person fade-up delay-100">
+        <div class="person-photo">
+          <div class="person-photo-inner">
+            <img src="public/assets/foto.jpeg" alt="Haedar Ma'ruf">
+          </div>
         </div>
-        <div class="countdown-item">
-          <span class="countdown-num font-serif" id="cd-hours">--</span>
-          <span class="countdown-label font-display">Jam</span>
+        <h3 class="person-name font-serif">Haedar Ma'ruf</h3>
+        <p class="person-parents">Putra dari<br>Bapak Ujang Rusmanto<br>&amp; Ibu Siti Khadijah</p>
+      </div>
+
+      <div class="heart-divider fade-up delay-200">&#10084;</div>
+
+      <div class="person fade-up delay-300">
+        <div class="person-photo">
+          <div class="person-photo-inner">
+            <img src="public/assets/foto.jpeg" alt="Astuti Paramitha">
+          </div>
         </div>
-        <div class="countdown-item">
-          <span class="countdown-num font-serif" id="cd-mins">--</span>
-          <span class="countdown-label font-display">Menit</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-num font-serif" id="cd-secs">--</span>
-          <span class="countdown-label font-display">Detik</span>
-        </div>
+        <h3 class="person-name font-serif">Astuti Paramitha</h3>
+        <p class="person-parents">Putri dari<br>Bapak Darmadi<br>&amp; Ibu Sri Wahyuni</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ─── VENUE ─── -->
-<div class="venue-section">
-  <section style="padding: 0;" class="fade-up">
-    <span class="section-tag font-display">Lokasi</span>
-    <h2 class="font-serif">Tempat Pelaksanaan</h2>
-    <h3 class="venue-name font-serif">Gedung Serbaguna Griya Indah</h3>
-    <p class="venue-address">
-      Jl. Mawar Raya No. 45, Kemang<br>
-      Jakarta Selatan, DKI Jakarta 12730
-    </p>
-    <a class="map-btn font-display" href="https://maps.google.com" target="_blank" rel="noopener noreferrer">Buka Google Maps</a>
   </section>
 </div>
 
+<!-- ─── EVENTS ─── -->
+<div class="events-section-wrapper">
+  <svg class="events-lily-l" viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="evLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/></linearGradient></defs>
+    <path d="M80 300 Q78 250 75 200 Q71 150 66 100 Q60 55 54 15" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M71 200 Q48 190 28 182" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.3"/>
+    <ellipse cx="54" cy="15" rx="12" ry="24" fill="url(#evLilyG1)" transform="rotate(-35 54 15)"/>
+    <ellipse cx="76" cy="13" rx="12" ry="24" fill="url(#evLilyG1)" transform="rotate(35 76 13)"/>
+    <ellipse cx="46" cy="40" rx="11" ry="22" fill="url(#evLilyG1)" transform="rotate(-75 46 40)"/>
+    <ellipse cx="82" cy="38" rx="11" ry="22" fill="url(#evLilyG1)" transform="rotate(75 82 38)"/>
+    <ellipse cx="40" cy="65" rx="10" ry="20" fill="url(#evLilyG1)" transform="rotate(-115 40 65)"/>
+    <ellipse cx="87" cy="62" rx="10" ry="20" fill="url(#evLilyG1)" transform="rotate(115 87 62)"/>
+    <circle cx="63" cy="43" r="6" fill="#d4af37" opacity="0.9"/>
+    <ellipse cx="30" cy="182" rx="9" ry="18" fill="url(#evLilyG1)" transform="rotate(-45 30 182)" opacity="0.7"/>
+    <ellipse cx="48" cy="180" rx="9" ry="18" fill="url(#evLilyG1)" transform="rotate(45 48 180)" opacity="0.7"/>
+    <circle cx="38" cy="188" r="4" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="events-lily-r" viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="evLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M80 300 Q82 250 85 200 Q89 150 94 100 Q100 55 106 15" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="106" cy="15" rx="12" ry="24" fill="url(#evLilyG2)" transform="rotate(-35 106 15)"/>
+    <ellipse cx="84" cy="13" rx="12" ry="24" fill="url(#evLilyG2)" transform="rotate(35 84 13)"/>
+    <ellipse cx="114" cy="40" rx="11" ry="22" fill="url(#evLilyG2)" transform="rotate(-75 114 40)"/>
+    <ellipse cx="78" cy="38" rx="11" ry="22" fill="url(#evLilyG2)" transform="rotate(75 78 38)"/>
+    <ellipse cx="120" cy="65" rx="10" ry="20" fill="url(#evLilyG2)" transform="rotate(-115 120 65)"/>
+    <ellipse cx="73" cy="62" rx="10" ry="20" fill="url(#evLilyG2)" transform="rotate(115 73 62)"/>
+    <circle cx="97" cy="43" r="6" fill="#d4af37" opacity="0.9"/>
+  </svg>
+
+  <section>
+    <div class="fade-up">
+      <span class="section-tag font-display">Rangkaian Acara</span>
+      <h2 class="font-serif">Hari Bahagia Kami</h2>
+      <p class="body-text">Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara kami.</p>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card fade-up delay-100">
+        <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <p class="event-name font-display">Akad Nikah</p>
+        <p class="event-time font-serif">08.00</p>
+        <p class="event-date font-sans">KAMIS, 27 JUNI 2026</p>
+        <p class="event-desc">Prosesi ijab kabul yang sakral dan penuh berkah sebagai awal perjalanan hidup kami.</p>
+      </div>
+
+      <div class="event-card fade-up delay-200">
+        <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path>
+        </svg>
+        <p class="event-name font-display">Resepsi</p>
+        <p class="event-time font-serif">11.00 – 16.00</p>
+        <p class="event-date font-sans">KAMIS, 27 JUNI 2026</p>
+        <p class="event-desc">Pesta pernikahan dan syukuran penuh suka cita bersama keluarga serta para sahabat.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── COUNTDOWN ─── -->
+<div class="countdown-section-wrapper">
+  <svg class="countdown-lily-l" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="cdLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M60 200 Q58 160 55 120 Q51 80 47 45" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="47" cy="45" rx="10" ry="20" fill="url(#cdLilyG1)" transform="rotate(-35 47 45)"/>
+    <ellipse cx="66" cy="43" rx="10" ry="20" fill="url(#cdLilyG1)" transform="rotate(35 66 43)"/>
+    <ellipse cx="40" cy="65" rx="9" ry="18" fill="url(#cdLilyG1)" transform="rotate(-75 40 65)"/>
+    <ellipse cx="72" cy="63" rx="9" ry="18" fill="url(#cdLilyG1)" transform="rotate(75 72 63)"/>
+    <ellipse cx="34" cy="85" rx="8" ry="16" fill="url(#cdLilyG1)" transform="rotate(-115 34 85)"/>
+    <ellipse cx="76" cy="82" rx="8" ry="16" fill="url(#cdLilyG1)" transform="rotate(115 76 82)"/>
+    <circle cx="55" cy="67" r="5" fill="#d4af37" opacity="0.9"/>
+  </svg>
+  <svg class="countdown-lily-r" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="cdLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M60 200 Q62 160 65 120 Q69 80 73 45" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <ellipse cx="73" cy="45" rx="10" ry="20" fill="url(#cdLilyG2)" transform="rotate(-35 73 45)"/>
+    <ellipse cx="54" cy="43" rx="10" ry="20" fill="url(#cdLilyG2)" transform="rotate(35 54 43)"/>
+    <ellipse cx="80" cy="65" rx="9" ry="18" fill="url(#cdLilyG2)" transform="rotate(-75 80 65)"/>
+    <ellipse cx="48" cy="63" rx="9" ry="18" fill="url(#cdLilyG2)" transform="rotate(75 48 63)"/>
+    <circle cx="65" cy="67" r="5" fill="#d4af37" opacity="0.9"/>
+  </svg>
+
+  <section>
+    <div class="fade-up">
+      <span class="section-tag font-display">Menuju Hari H</span>
+      <h2 class="font-serif">Menghitung Waktu</h2>
+      
+      <div class="countdown-wrapper">
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <span class="countdown-num font-serif" id="cd-days">--</span>
+            <span class="countdown-label font-display">Hari</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num font-serif" id="cd-hours">--</span>
+            <span class="countdown-label font-display">Jam</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num font-serif" id="cd-mins">--</span>
+            <span class="countdown-label font-display">Menit</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num font-serif" id="cd-secs">--</span>
+            <span class="countdown-label font-display">Detik</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── VENUE ─── -->
+<div class="venue-section">
+  <!-- Lily corners -->
+  <svg class="venue-lily-tl" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="vnLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.42"/></linearGradient></defs>
+    <path d="M80 220 Q78 180 74 140 Q70 100 65 60 Q60 30 54 5" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.42"/>
+    <ellipse cx="54" cy="5" rx="11" ry="22" fill="url(#vnLilyG1)" transform="rotate(-35 54 5)"/>
+    <ellipse cx="74" cy="3" rx="11" ry="22" fill="url(#vnLilyG1)" transform="rotate(35 74 3)"/>
+    <ellipse cx="46" cy="28" rx="10" ry="20" fill="url(#vnLilyG1)" transform="rotate(-75 46 28)"/>
+    <ellipse cx="80" cy="26" rx="10" ry="20" fill="url(#vnLilyG1)" transform="rotate(75 80 26)"/>
+    <ellipse cx="40" cy="52" rx="9" ry="18" fill="url(#vnLilyG1)" transform="rotate(-115 40 52)"/>
+    <ellipse cx="84" cy="49" rx="9" ry="18" fill="url(#vnLilyG1)" transform="rotate(115 84 49)"/>
+    <circle cx="62" cy="30" r="6" fill="#d4af37" opacity="0.9"/>
+  </svg>
+  <svg class="venue-lily-tr" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="vnLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M80 220 Q82 180 86 140 Q90 100 95 60 Q100 30 106 5" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.42"/>
+    <ellipse cx="106" cy="5" rx="11" ry="22" fill="url(#vnLilyG2)" transform="rotate(-35 106 5)"/>
+    <ellipse cx="86" cy="3" rx="11" ry="22" fill="url(#vnLilyG2)" transform="rotate(35 86 3)"/>
+    <ellipse cx="114" cy="28" rx="10" ry="20" fill="url(#vnLilyG2)" transform="rotate(-75 114 28)"/>
+    <ellipse cx="80" cy="26" rx="10" ry="20" fill="url(#vnLilyG2)" transform="rotate(75 80 26)"/>
+    <circle cx="98" cy="30" r="6" fill="#d4af37" opacity="0.9"/>
+  </svg>
+  <svg class="venue-lily-bl" viewBox="0 0 150 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="vnLilyG3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M10 160 Q28 130 55 105 Q82 80 105 55" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.38"/>
+    <ellipse cx="102" cy="55" rx="10" ry="20" fill="url(#vnLilyG3)" transform="rotate(-40 102 55)"/>
+    <ellipse cx="118" cy="53" rx="10" ry="20" fill="url(#vnLilyG3)" transform="rotate(40 118 53)"/>
+    <ellipse cx="95" cy="73" rx="9" ry="18" fill="url(#vnLilyG3)" transform="rotate(-80 95 73)"/>
+    <circle cx="108" cy="68" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="venue-lily-br" viewBox="0 0 150 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="vnLilyG4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M140 160 Q122 130 95 105 Q68 80 45 55" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.38"/>
+    <ellipse cx="48" cy="55" rx="10" ry="20" fill="url(#vnLilyG4)" transform="rotate(-40 48 55)"/>
+    <ellipse cx="32" cy="53" rx="10" ry="20" fill="url(#vnLilyG4)" transform="rotate(40 32 53)"/>
+    <ellipse cx="55" cy="73" rx="9" ry="18" fill="url(#vnLilyG4)" transform="rotate(-80 55 73)"/>
+    <circle cx="42" cy="68" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <section style="padding: 0; position: relative; z-index: 2;" class="fade-up">
+    <span class="section-tag font-display">Lokasi</span>
+    <h2 class="font-serif">Tempat Pelaksanaan</h2>
+    <p class="venue-address">
+      Dusun Ciaseum RT 01 RW 03<br>
+      Kel. Karanglayung, Kec. Conggeang<br>
+      Kab. Sumedang, Jawa Barat
+    </p>
+    <div class="qr-code-container fade-up delay-100">
+      <img src="public/assets/lokasi.jpeg" alt="QR Code Lokasi" class="qr-code-image">
+      <p class="qr-label font-display">Scan untuk membuka Google Maps</p>
+    </div>
+</div>
+
+<!-- ─── WEDDING GIFT ─── -->
+<section class="wedding-gift-section">
+  <!-- Lily side decorations -->
+  <svg class="gift-lily-l" viewBox="0 0 130 260" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="gfLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M65 260 Q63 210 60 160 Q56 110 51 65 Q46 30 40 5" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.42"/>
+    <path d="M57 160 Q36 150 18 142" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.3"/>
+    <ellipse cx="40" cy="5" rx="11" ry="22" fill="url(#gfLilyG1)" transform="rotate(-35 40 5)"/>
+    <ellipse cx="60" cy="3" rx="11" ry="22" fill="url(#gfLilyG1)" transform="rotate(35 60 3)"/>
+    <ellipse cx="33" cy="28" rx="10" ry="20" fill="url(#gfLilyG1)" transform="rotate(-75 33 28)"/>
+    <ellipse cx="66" cy="26" rx="10" ry="20" fill="url(#gfLilyG1)" transform="rotate(75 66 26)"/>
+    <ellipse cx="27" cy="52" rx="9" ry="18" fill="url(#gfLilyG1)" transform="rotate(-115 27 52)"/>
+    <ellipse cx="70" cy="49" rx="9" ry="18" fill="url(#gfLilyG1)" transform="rotate(115 70 49)"/>
+    <circle cx="48" cy="30" r="6" fill="#d4af37" opacity="0.9"/>
+    <ellipse cx="20" cy="142" rx="8" ry="16" fill="url(#gfLilyG1)" transform="rotate(-45 20 142)" opacity="0.7"/>
+    <ellipse cx="36" cy="140" rx="8" ry="16" fill="url(#gfLilyG1)" transform="rotate(45 36 140)" opacity="0.7"/>
+    <circle cx="27" cy="148" r="4" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="gift-lily-r" viewBox="0 0 130 260" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="gfLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M65 260 Q67 210 70 160 Q74 110 79 65 Q84 30 90 5" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.42"/>
+    <ellipse cx="90" cy="5" rx="11" ry="22" fill="url(#gfLilyG2)" transform="rotate(-35 90 5)"/>
+    <ellipse cx="70" cy="3" rx="11" ry="22" fill="url(#gfLilyG2)" transform="rotate(35 70 3)"/>
+    <ellipse cx="97" cy="28" rx="10" ry="20" fill="url(#gfLilyG2)" transform="rotate(-75 97 28)"/>
+    <ellipse cx="64" cy="26" rx="10" ry="20" fill="url(#gfLilyG2)" transform="rotate(75 64 26)"/>
+    <circle cx="82" cy="30" r="6" fill="#d4af37" opacity="0.9"/>
+  </svg>
+
+  <div class="fade-up" style="position:relative; z-index:2;">
+    <span class="section-tag font-display">Hadiah Pernikahan</span>
+    <h2 class="font-serif">Berikan Hadiah Kami</h2>
+    <p class="body-text">Kami sangat berterima kasih atas kesediaan Bapak/Ibu/Saudara/i untuk membahagiakan kami. Berikut pilihan cara memberikan hadiah pernikahan kami.</p>
+  </div>
+
+  <div class="gift-options fade-up delay-100" style="position:relative;z-index:2;">
+    <div class="gift-card" style="max-width:400px;">
+      <img src="public/assets/wedding-gift.jpeg" alt="QR Code Wedding Gift" style="width:100%;height:auto;border-radius:12px;margin:-2.5rem -2rem 1.5rem -2rem;padding:0;">
+      <h3 class="gift-title font-serif">QR Code Hadiah</h3>
+      <p class="gift-desc">Scan QR code di atas untuk memberikan hadiah kepada kami</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOVE STORY ─── -->
+<section class="love-story-section">
+  <!-- Original lily decorations -->
+  <svg class="lily-flower lily-top-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="lilyGrad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.7"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.5"/></linearGradient></defs>
+    <path d="M100 200 Q95 160 90 120 Q85 80 80 40" stroke="#d4af37" stroke-width="2" fill="none" opacity="0.6"/>
+    <ellipse cx="85" cy="50" rx="18" ry="35" fill="url(#lilyGrad1)" transform="rotate(-45 85 50)"/>
+    <ellipse cx="115" cy="50" rx="18" ry="35" fill="url(#lilyGrad1)" transform="rotate(45 115 50)"/>
+    <ellipse cx="80" cy="85" rx="18" ry="35" fill="url(#lilyGrad1)" transform="rotate(-80 80 85)"/>
+    <ellipse cx="120" cy="85" rx="18" ry="35" fill="url(#lilyGrad1)" transform="rotate(80 120 85)"/>
+    <ellipse cx="75" cy="120" rx="18" ry="35" fill="url(#lilyGrad1)" transform="rotate(-120 75 120)"/>
+    <ellipse cx="125" cy="120" rx="18" ry="35" fill="url(#lilyGrad1)" transform="rotate(120 125 120)"/>
+    <circle cx="100" cy="85" r="8" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="lily-flower lily-top-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="lilyGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.4"/></linearGradient></defs>
+    <path d="M100 200 Q105 160 110 120 Q115 80 120 40" stroke="#d4af37" stroke-width="2" fill="none" opacity="0.6"/>
+    <ellipse cx="85" cy="50" rx="18" ry="35" fill="url(#lilyGrad2)" transform="rotate(-45 85 50)"/>
+    <ellipse cx="115" cy="50" rx="18" ry="35" fill="url(#lilyGrad2)" transform="rotate(45 115 50)"/>
+    <ellipse cx="80" cy="85" rx="18" ry="35" fill="url(#lilyGrad2)" transform="rotate(-80 80 85)"/>
+    <ellipse cx="120" cy="85" rx="18" ry="35" fill="url(#lilyGrad2)" transform="rotate(80 120 85)"/>
+    <circle cx="100" cy="85" r="8" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="lily-flower lily-bottom-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="lilyGrad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M100 200 Q100 160 95 120 Q90 80 85 40" stroke="#d4af37" stroke-width="2" fill="none" opacity="0.6"/>
+    <ellipse cx="85" cy="50" rx="18" ry="35" fill="url(#lilyGrad3)" transform="rotate(-45 85 50)"/>
+    <ellipse cx="115" cy="50" rx="18" ry="35" fill="url(#lilyGrad3)" transform="rotate(45 115 50)"/>
+    <ellipse cx="80" cy="85" rx="18" ry="35" fill="url(#lilyGrad3)" transform="rotate(-80 80 85)"/>
+    <ellipse cx="120" cy="85" rx="18" ry="35" fill="url(#lilyGrad3)" transform="rotate(80 120 85)"/>
+    <circle cx="100" cy="85" r="8" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="lily-flower lily-bottom-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="lilyGrad4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.45"/></linearGradient></defs>
+    <path d="M100 200 Q105 160 110 120 Q115 80 120 40" stroke="#d4af37" stroke-width="2" fill="none" opacity="0.6"/>
+    <ellipse cx="85" cy="50" rx="18" ry="35" fill="url(#lilyGrad4)" transform="rotate(-45 85 50)"/>
+    <ellipse cx="115" cy="50" rx="18" ry="35" fill="url(#lilyGrad4)" transform="rotate(45 115 50)"/>
+    <ellipse cx="80" cy="85" rx="18" ry="35" fill="url(#lilyGrad4)" transform="rotate(-80 80 85)"/>
+    <ellipse cx="120" cy="85" rx="18" ry="35" fill="url(#lilyGrad4)" transform="rotate(80 120 85)"/>
+    <circle cx="100" cy="85" r="8" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <!-- Extra mid lily accents -->
+  <svg class="lily-mid-left" viewBox="0 0 130 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="midLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M65 200 Q63 160 60 120 Q56 80 52 45" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.38"/>
+    <ellipse cx="52" cy="45" rx="10" ry="20" fill="url(#midLilyG1)" transform="rotate(-35 52 45)"/>
+    <ellipse cx="70" cy="43" rx="10" ry="20" fill="url(#midLilyG1)" transform="rotate(35 70 43)"/>
+    <ellipse cx="45" cy="66" rx="9" ry="18" fill="url(#midLilyG1)" transform="rotate(-75 45 66)"/>
+    <ellipse cx="76" cy="64" rx="9" ry="18" fill="url(#midLilyG1)" transform="rotate(75 76 64)"/>
+    <circle cx="60" cy="58" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+  <svg class="lily-mid-right" viewBox="0 0 130 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="midLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M65 200 Q67 160 70 120 Q74 80 78 45" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.38"/>
+    <ellipse cx="78" cy="45" rx="10" ry="20" fill="url(#midLilyG2)" transform="rotate(-35 78 45)"/>
+    <ellipse cx="60" cy="43" rx="10" ry="20" fill="url(#midLilyG2)" transform="rotate(35 60 43)"/>
+    <ellipse cx="85" cy="66" rx="9" ry="18" fill="url(#midLilyG2)" transform="rotate(-75 85 66)"/>
+    <ellipse cx="54" cy="64" rx="9" ry="18" fill="url(#midLilyG2)" transform="rotate(75 54 64)"/>
+    <circle cx="70" cy="58" r="5" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <div class="love-story-content fade-up">
+    <span class="section-tag font-display">Cerita Kami</span>
+    <h2 class="font-serif">Takdir Membawa Pulang</h2>
+    
+    <div class="story-timeline">
+      <div class="story-entry">
+        <div class="story-date">24 Februari 2024</div>
+        <p class="story-text">
+          Semesta punya caranya sendiri untuk mempertemukan dua hati yang ditakdirkan.<br><br>
+          Di hari itu, tanpa rencana dan tanpa dugaan, langkah kaki membawa kami ke satu tempat yang sama—sebuah undangan yang hampir saja terlewatkan.<br><br>
+          Kami adalah dua insan yang serupa, yang lebih nyaman dalam sunyi daripada keramaian, yang sering memilih untuk tidak datang daripada harus berada di tengah banyak orang. Namun entah mengapa, hari itu terasa berbeda.<br><br>
+          Dan benar saja… di tengah keramaian yang biasa kami hindari, kami justru menemukan satu sama lain. <strong>Sebuah pertemuan yang sederhana, namun menyimpan makna yang begitu dalam—karena dari sanalah, cerita ini dimulai.</strong>
+        </p>
+      </div>
+      <div class="story-entry">
+        <div class="story-date">26 April 2025</div>
+        <p class="story-text">
+          Waktu berjalan, membawa kami semakin dekat dalam kebersamaan.<br><br>
+          Hari demi hari kami lewati, belajar memahami tanpa banyak kata, menerima tanpa banyak syarat, dan tumbuh bersama dalam rasa yang semakin nyata.<br><br>
+          Hingga pada akhirnya, kami memilih untuk melangkah lebih jauh—<strong>mengikat janji dalam sebuah pertunangan, sebagai tanda bahwa perjalanan ini bukan lagi sementara.</strong>
+        </p>
+      </div>
+      <div class="story-entry">
+        <div class="story-date">27 Juni 2026</div>
+        <p class="story-text">
+          Dan kini, kami tiba di ujung dari sebuah perjalanan panjang, sekaligus awal dari kisah yang sesungguhnya.<br><br>
+          Dengan segala rasa syukur, keyakinan, dan cinta, kami memutuskan untuk berjalan berdampingan, dalam satu tujuan, satu arah, dan satu doa.<br><br>
+          <strong>Bukan lagi tentang dua orang yang dipertemukan, tetapi tentang dua hati yang memilih untuk menetap. Dari yang tak terduga, menjadi yang tak tergantikan. Dari sebuah pertemuan singkat, hingga janji untuk seumur hidup.</strong><br><br>
+          <em>Dan dari hari itu, kami percaya—bahwa takdir selalu tahu ke mana ia akan membawa pulang.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── FOOTER ─── -->
 <footer>
-  <div class="fade-up">
-    <h2 class="footer-names font-serif">Rafi &amp; Adinda</h2>
+  <!-- Footer lily decorations -->
+  <svg class="footer-lily-l" viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="ftLilyG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.55"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.38"/></linearGradient></defs>
+    <path d="M90 200 Q85 160 80 120 Q74 80 68 45 Q62 20 55 5" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M78 120 Q54 110 30 102" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.28"/>
+    <ellipse cx="55" cy="5" rx="12" ry="24" fill="url(#ftLilyG1)" transform="rotate(-35 55 5)"/>
+    <ellipse cx="76" cy="3" rx="12" ry="24" fill="url(#ftLilyG1)" transform="rotate(35 76 3)"/>
+    <ellipse cx="47" cy="28" rx="11" ry="22" fill="url(#ftLilyG1)" transform="rotate(-75 47 28)"/>
+    <ellipse cx="82" cy="26" rx="11" ry="22" fill="url(#ftLilyG1)" transform="rotate(75 82 26)"/>
+    <ellipse cx="41" cy="52" rx="10" ry="20" fill="url(#ftLilyG1)" transform="rotate(-115 41 52)"/>
+    <ellipse cx="86" cy="49" rx="10" ry="20" fill="url(#ftLilyG1)" transform="rotate(115 86 49)"/>
+    <circle cx="63" cy="30" r="6" fill="#d4af37" opacity="0.9"/>
+    <ellipse cx="32" cy="102" rx="9" ry="18" fill="url(#ftLilyG1)" transform="rotate(-45 32 102)" opacity="0.65"/>
+    <ellipse cx="50" cy="100" rx="9" ry="18" fill="url(#ftLilyG1)" transform="rotate(45 50 100)" opacity="0.65"/>
+    <circle cx="40" cy="108" r="4" fill="#d4af37" opacity="0.8"/>
+  </svg>
+
+  <svg class="footer-lily-r" viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="ftLilyG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f3e5ab;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#d4af37;stop-opacity:0.35"/></linearGradient></defs>
+    <path d="M90 200 Q95 160 100 120 Q106 80 112 45 Q118 20 125 5" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M102 120 Q126 110 150 102" stroke="#d4af37" stroke-width="1" fill="none" opacity="0.28"/>
+    <ellipse cx="125" cy="5" rx="12" ry="24" fill="url(#ftLilyG2)" transform="rotate(-35 125 5)"/>
+    <ellipse cx="104" cy="3" rx="12" ry="24" fill="url(#ftLilyG2)" transform="rotate(35 104 3)"/>
+    <ellipse cx="133" cy="28" rx="11" ry="22" fill="url(#ftLilyG2)" transform="rotate(-75 133 28)"/>
+    <ellipse cx="98" cy="26" rx="11" ry="22" fill="url(#ftLilyG2)" transform="rotate(75 98 26)"/>
+    <ellipse cx="139" cy="52" rx="10" ry="20" fill="url(#ftLilyG2)" transform="rotate(-115 139 52)"/>
+    <ellipse cx="94" cy="49" rx="10" ry="20" fill="url(#ftLilyG2)" transform="rotate(115 94 49)"/>
+    <circle cx="117" cy="30" r="6" fill="#d4af37" opacity="0.9"/>
+  </svg>
+
+  <div class="fade-up" style="position:relative; z-index:2;">
+    <img src="public/assets/logo.jpeg" alt="Logo" class="footer-logo">
+    <h2 class="footer-names font-serif">Haedar &amp; Astuti</h2>
     <div class="gold-divider"><span class="diamond"></span></div>
     <p class="footer-note">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
-    <p class="footer-note font-display" style="margin-top: 3rem; font-size: 0.65rem; opacity: 0.4;">
-      &copy; 2026 • DIBUAT DENGAN CINTA
-    </p>
   </div>
 </footer>
 
 <script>
-  // Countdown Timer Script
-  const weddingDate = new Date('2025-06-14T08:00:00').getTime();
+  function openEnvelope() {
+    const envelope = document.getElementById('envelope');
+    const screen = document.getElementById('envelope-screen');
+    envelope.classList.add('open');
+    setTimeout(() => {
+      screen.classList.add('hide');
+      document.body.classList.remove('locked');
+      document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+    }, 2200);
+  }
 
+  const weddingDate = new Date('2026-06-27T08:00:00').getTime();
   function updateCountdown() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
-
     if (distance <= 0) {
-      document.getElementById('countdown').innerHTML = 
-        '<p class="font-serif" style="font-size:2.5rem; color:var(--gold-light); font-style:italic;">Hari Bahagia Telah Tiba ✨</p>';
+      document.getElementById('countdown').innerHTML = '<p class="font-serif" style="font-size:2.5rem; color:var(--gold-light); font-style:italic;">Hari Bahagia Telah Tiba ✨</p>';
       return;
     }
-
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
     document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
     document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
     document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
     document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
   }
-
   updateCountdown();
   setInterval(updateCountdown, 1000);
-
-  // Intersection Observer for Scroll Fade-Up Animations
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.15
-  };
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // Stop observing once it's visible
+        observer.unobserve(entry.target);
       }
     });
-  }, observerOptions);
+  }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
-  document.querySelectorAll('.fade-up').forEach((el) => {
-    observer.observe(el);
-  });
+  document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
 </script>
 </body>
 </html>
