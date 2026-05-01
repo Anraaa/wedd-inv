@@ -774,15 +774,78 @@
     .delay-200 { transition-delay: 200ms; }
     .delay-300 { transition-delay: 300ms; }
 
+    /* ─── AUDIO PLAYER ─── */
+    .audio-player {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(212, 175, 55, 0.15);
+      border: 2px solid var(--gold);
+      border-radius: 50px;
+      padding: 12px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .audio-player:hover {
+      background: rgba(212, 175, 55, 0.25);
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
+    }
+
+    .audio-player-icon {
+      font-size: 1.2rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .audio-player-text {
+      font-size: 0.85rem;
+      color: var(--gold);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .audio-player.playing .play-icon { display: none; }
+    .audio-player.playing .pause-icon { display: block; }
+    .audio-player:not(.playing) .play-icon { display: block; }
+    .audio-player:not(.playing) .pause-icon { display: none; }
+
     @media (max-width: 768px) {
       .couple-grid { grid-template-columns: 1fr; gap: 2rem; }
       .heart-divider { transform: rotate(90deg); }
       section { padding: 4rem 1.5rem; }
       .gold-divider { max-width: 200px; }
+      .audio-player { top: 10px; right: 10px; padding: 10px 16px; font-size: 0.75rem; }
+      .audio-player-text { font-size: 0.75rem; }
     }
   </style>
 </head>
 <body class="locked">
+
+<!-- ─── AUDIO PLAYER ─── -->
+<audio id="bg-audio" preload="metadata">
+  <source src="/assets/glenn-kisah-romantis.mp3" type="audio/mpeg">
+</audio>
+
+<div id="audio-player" class="audio-player">
+  <span class="audio-player-icon">
+    <span class="play-icon">▶</span>
+    <span class="pause-icon">⏸</span>
+  </span>
+  <span class="audio-player-text">Glenn - Kisah Romantis</span>
+</div>
 
 <!-- ─── LILY SVG TEMPLATES (reusable inline) ─── -->
 <!-- We'll use inline SVG snippets throughout -->
@@ -1573,6 +1636,24 @@
   }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
   document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+  // ─── AUDIO PLAYER ─── 
+  const audioPlayer = document.getElementById('audio-player');
+  const bgAudio = document.getElementById('bg-audio');
+
+  audioPlayer.addEventListener('click', function() {
+    if (bgAudio.paused) {
+      bgAudio.play().catch(err => console.log('Audio play failed:', err));
+      audioPlayer.classList.add('playing');
+    } else {
+      bgAudio.pause();
+      audioPlayer.classList.remove('playing');
+    }
+  });
+
+  bgAudio.addEventListener('play', () => audioPlayer.classList.add('playing'));
+  bgAudio.addEventListener('pause', () => audioPlayer.classList.remove('playing'));
+  bgAudio.addEventListener('ended', () => audioPlayer.classList.remove('playing'));
 </script>
 </body>
 </html>
