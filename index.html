@@ -298,6 +298,13 @@
     .envelope-text p { font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.9; }
     .envelope-text h3 { font-size: 2rem; color: var(--gold-light); margin: 0.8rem 0 2.5rem; font-weight: 300; letter-spacing: 0.05em; }
     
+    .envelope-logo {
+      width: 80px; height: 80px;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+    
     .open-btn {
       background: transparent;
       color: var(--gold);
@@ -764,6 +771,16 @@
     }
 
     .footer-names { font-size: 2.5rem; font-style: italic; color: var(--gold); margin-bottom: 0.5rem; }
+    
+    .footer-logo {
+      width: 100px; height: 100px;
+      margin-bottom: 1.5rem;
+      opacity: 0.95;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      position: relative;
+      z-index: 2;
+    }
+    
     .footer-note { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 0.1em; margin-top: 1rem; position: relative; z-index: 2; }
 
     /* ─── ANIMATIONS ─── */
@@ -1254,6 +1271,7 @@
     </div>
 
     <div class="envelope-text">
+      <img src="/assets/logo.PNG" alt="Logo" class="envelope-logo">
       <p class="font-display" style="color: var(--gold); font-size: 0.8rem; letter-spacing: 0.2em;">Kpd Bpk/Ibu/Saudara/i</p>
       <h3 class="font-serif">Tamu Undangan</h3>
       <button class="open-btn font-display" onclick="openEnvelope()">Buka Undangan</button>
@@ -1932,6 +1950,7 @@
   </svg>
 
   <div class="fade-up" style="position:relative; z-index:2;">
+    <img src="/assets/logo.PNG" alt="Logo" class="footer-logo">
     <h2 class="footer-names font-serif">Haedar &amp; Astuti</h2>
     <div class="gold-divider"><span class="diamond"></span></div>
     <p class="footer-note">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
