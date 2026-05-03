@@ -322,7 +322,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .envelope-logo {
       width: 80px; height: 80px;
       margin-bottom: 1.5rem;
       opacity: 0.9;
@@ -687,7 +686,8 @@
 
     /* ─── LOVE STORY ─── */
     .love-story-section {
-      background: linear-gradient(180deg, var(--dark-green) 0%, var(--mid-green) 50%, var(--dark-green) 100%);
+      background: linear-gradient(180deg, rgba(17, 32, 20, 0.92) 0%, rgba(26, 45, 29, 0.92) 50%, rgba(17, 32, 20, 0.92) 100%),
+                  url('/assets/latar.jpeg') center/cover no-repeat;
       padding: 7rem 2rem;
       position: relative;
       overflow: hidden;
@@ -764,7 +764,6 @@
     }
 
     .footer-names { font-size: 2.5rem; font-style: italic; color: var(--gold); margin-bottom: 0.5rem; }
-    .footer-logo { width: 70px; height: 70px; margin-bottom: 1.5rem; opacity: 0.85; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
     .footer-note { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 0.1em; margin-top: 1rem; position: relative; z-index: 2; }
 
     /* ─── ANIMATIONS ─── */
@@ -773,54 +772,6 @@
     .delay-100 { transition-delay: 100ms; }
     .delay-200 { transition-delay: 200ms; }
     .delay-300 { transition-delay: 300ms; }
-
-    /* ─── AUDIO PLAYER ─── */
-    .audio-player {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(212, 175, 55, 0.15);
-      border: 2px solid var(--gold);
-      border-radius: 50px;
-      padding: 12px 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    .audio-player:hover {
-      background: rgba(212, 175, 55, 0.25);
-      transform: scale(1.05);
-      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
-    }
-
-    .audio-player-icon {
-      font-size: 1.2rem;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .audio-player-text {
-      font-size: 0.85rem;
-      color: var(--gold);
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-    }
-
-    .audio-player.playing .play-icon { display: none; }
-    .audio-player.playing .pause-icon { display: block; }
-    .audio-player:not(.playing) .play-icon { display: block; }
-    .audio-player:not(.playing) .pause-icon { display: none; }
 
     /* ─── RSVP SECTION ─── */
     .rsvp-container {
@@ -1146,8 +1097,7 @@
       .heart-divider { transform: rotate(90deg); }
       section { padding: 4rem 1.5rem; }
       .gold-divider { max-width: 200px; }
-      .audio-player { top: 10px; right: 10px; padding: 10px 16px; font-size: 0.75rem; }
-      .audio-player-text { font-size: 0.75rem; }
+
       .rsvp-container { grid-template-columns: 1fr; gap: 2rem; }
       .rsvp-form-wrapper, .guest-list-wrapper { padding: 1.5rem; }
     }
@@ -1156,17 +1106,9 @@
 <body class="locked">
 
 <!-- ─── AUDIO PLAYER ─── -->
-<audio id="bg-audio" preload="metadata">
+<audio id="bg-audio" preload="metadata" autoplay loop>
   <source src="/assets/glenn-kisah-romantis.mp3" type="audio/mpeg">
 </audio>
-
-<div id="audio-player" class="audio-player">
-  <span class="audio-player-icon">
-    <span class="play-icon">▶</span>
-    <span class="pause-icon">⏸</span>
-  </span>
-  <span class="audio-player-text">Glenn - Kisah Romantis</span>
-</div>
 
 <!-- ─── LILY SVG TEMPLATES (reusable inline) ─── -->
 <!-- We'll use inline SVG snippets throughout -->
@@ -1312,7 +1254,6 @@
     </div>
 
     <div class="envelope-text">
-      <img src="/assets/logo.jpeg" alt="Logo" class="envelope-logo">
       <p class="font-display" style="color: var(--gold); font-size: 0.8rem; letter-spacing: 0.2em;">Kpd Bpk/Ibu/Saudara/i</p>
       <h3 class="font-serif">Tamu Undangan</h3>
       <button class="open-btn font-display" onclick="openEnvelope()">Buka Undangan</button>
@@ -1542,7 +1483,7 @@
       <div class="person fade-up delay-100">
         <div class="person-photo">
           <div class="person-photo-inner">
-            <img src="/assets/foto.jpeg" alt="Haedar Ma'ruf">
+            <img src="/assets/foto-pria.jpeg" alt="Haedar Ma'ruf">
           </div>
         </div>
         <h3 class="person-name font-serif">Haedar Ma'ruf</h3>
@@ -1554,7 +1495,7 @@
       <div class="person fade-up delay-300">
         <div class="person-photo">
           <div class="person-photo-inner">
-            <img src="/assets/foto.jpeg" alt="Astuti Paramitha">
+            <img src="/assets/foto-wanita.jpeg" alt="Astuti Paramitha">
           </div>
         </div>
         <h3 class="person-name font-serif">Astuti Paramitha</h3>
@@ -1768,7 +1709,7 @@
 
   <div class="gift-options fade-up delay-100" style="position:relative;z-index:2;">
     <div class="gift-card" style="max-width:400px;">
-      <img src="/assets/wedding-gift.jpeg" alt="QR Code Wedding Gift" style="width:100%;height:auto;border-radius:12px;margin:-2.5rem -2rem 1.5rem -2rem;padding:0;">
+      <img src="/assets/wedding-gift.jpeg" alt="QR Code Wedding Gift" style="width:85%;height:auto;border-radius:12px;margin:0 auto 1.5rem auto;padding:1.5rem;display:block;background:white;">
       <h3 class="gift-title font-serif">QR Code Hadiah</h3>
       <p class="gift-desc">Scan QR code di atas untuk memberikan hadiah kepada kami</p>
     </div>
@@ -1991,7 +1932,6 @@
   </svg>
 
   <div class="fade-up" style="position:relative; z-index:2;">
-    <img src="/assets/logo.jpeg" alt="Logo" class="footer-logo">
     <h2 class="footer-names font-serif">Haedar &amp; Astuti</h2>
     <div class="gold-divider"><span class="diamond"></span></div>
     <p class="footer-note">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
@@ -2041,23 +1981,7 @@
 
   document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
 
-  // ─── AUDIO PLAYER ─── 
-  const audioPlayer = document.getElementById('audio-player');
-  const bgAudio = document.getElementById('bg-audio');
 
-  audioPlayer.addEventListener('click', function() {
-    if (bgAudio.paused) {
-      bgAudio.play().catch(err => console.log('Audio play failed:', err));
-      audioPlayer.classList.add('playing');
-    } else {
-      bgAudio.pause();
-      audioPlayer.classList.remove('playing');
-    }
-  });
-
-  bgAudio.addEventListener('play', () => audioPlayer.classList.add('playing'));
-  bgAudio.addEventListener('pause', () => audioPlayer.classList.remove('playing'));
-  bgAudio.addEventListener('ended', () => audioPlayer.classList.remove('playing'));
 
   // ─── RSVP FUNCTIONALITY ─── 
   const ADMIN_PASSWORD = 'haedar2026';
