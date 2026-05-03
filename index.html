@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation – Haedar & Astuti</title>
+  <title>Wedding Invitation – Haedar & Mitha</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
@@ -402,7 +402,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: -3rem;
+      justify-content: center;
+      margin-top: 0;
+      width: 100%;
     }
 
     .hero-label { font-size: 0.75rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; }
@@ -427,9 +429,29 @@
       letter-spacing: -0.02em;
       text-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .hero-names .and { font-size: clamp(2.5rem, 8vw, 4rem); font-style: italic; color: var(--gold); display: block; margin: -0.5rem 0; }
-    .hero-date { font-size: 0.9rem; letter-spacing: 0.3em; color: var(--gold-pale); margin-top: 1.5rem; text-transform: uppercase; }
+   .hero-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* ini yang menengahkan & */
+  text-align: center;
+}
 
+.hero-names .and {
+  text-align: center;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+  margin: -0.5rem 0;
+}
+
+.hero-date {
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: var(--gold-pale);
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+}
     .scroll-indicator {
       position: absolute;
       bottom: 2.5rem;
@@ -530,7 +552,7 @@
     .person-photo-inner img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
     .person-name { font-size: 2rem; font-weight: 400; color: var(--gold-light); margin-bottom: 0.8rem; }
     .person-parents { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
-    .heart-divider { font-size: 2.5rem; color: var(--gold); font-style: italic; animation: pulse 2s infinite; }
+    .heart-divider { font-size: 2.5rem; color: var(--white); font-style: italic; animation: pulse 2s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
 
     /* ─── EVENTS ─── */
@@ -1111,7 +1133,7 @@
 
     @media (max-width: 768px) {
       .couple-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .heart-divider { transform: rotate(90deg); }
+      .heart-divider { transform: rotate(90deg); color: white;}
       section { padding: 4rem 1.5rem; }
       .gold-divider { max-width: 200px; }
 
@@ -1216,7 +1238,7 @@
       
       <div class="letter" id="letter">
         <div class="letter-inner">
-          <h2 class="font-serif">Haedar & Astuti</h2>
+          <h2 class="font-serif">Haedar & Mitha</h2>
           <p class="font-display">27 JUNI 2026</p>
           <div class="gold-divider" style="max-width: 80px; margin: 1rem auto;"><span class="diamond"></span></div>
           <p class="font-serif" style="font-size: 1rem; color: var(--dark-green); font-style: italic;">Turut Mengundang...</p>
@@ -1266,7 +1288,7 @@
       </div>
       
       <div class="wax-seal font-serif" id="wax-seal">
-        <div class="wax-seal-inner">H&A</div>
+        <div class="wax-seal-inner">H&M</div>
       </div>
     </div>
 
@@ -1391,7 +1413,7 @@
     <h1 class="hero-names font-serif">
       Haedar
       <span class="and">&amp;</span>
-      Astuti
+      Mitha
     </h1>
     <div class="gold-divider"><span class="diamond"></span></div>
     <p class="hero-date font-display">Kamis, 27 Juni 2026</p>
@@ -1505,7 +1527,7 @@
           </div>
         </div>
         <h3 class="person-name font-serif">Haedar Ma'ruf</h3>
-        <p class="person-parents">Putra dari<br>Bapak Ujang Rusmanto<br>&amp; Ibu Siti Khadijah</p>
+        <p class="person-parents">Putra pertama dari<br>Bapak Daday Nurul Huda (Alm)<br>&amp; Ibu Rosmiati</p>
       </div>
 
       <div class="heart-divider fade-up delay-200">&#10084;</div>
@@ -1517,7 +1539,7 @@
           </div>
         </div>
         <h3 class="person-name font-serif">Astuti Paramitha</h3>
-        <p class="person-parents">Putri dari<br>Bapak Darmadi<br>&amp; Ibu Sri Wahyuni</p>
+        <p class="person-parents">Putri kedua dari<br>Bapak Entis Sutisna<br>&amp; Ibu Mumun Mirawati</p>
       </div>
     </div>
   </section>
@@ -1565,8 +1587,8 @@
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
         <p class="event-name font-display">Akad Nikah</p>
-        <p class="event-time font-serif">08.00</p>
-        <p class="event-date font-sans">KAMIS, 27 JUNI 2026</p>
+        <p class="event-time font-serif">09.00</p>
+        <p class="event-date font-sans">SABTU, 27 JUNI 2026</p>
         <p class="event-desc">Prosesi ijab kabul yang sakral dan penuh berkah sebagai awal perjalanan hidup kami.</p>
       </div>
 
@@ -1578,7 +1600,7 @@
         </svg>
         <p class="event-name font-display">Resepsi</p>
         <p class="event-time font-serif">11.00 – 16.00</p>
-        <p class="event-date font-sans">KAMIS, 27 JUNI 2026</p>
+        <p class="event-date font-sans">SABTU, 27 JUNI 2026</p>
         <p class="event-desc">Pesta pernikahan dan syukuran penuh suka cita bersama keluarga serta para sahabat.</p>
       </div>
     </div>
@@ -1951,7 +1973,7 @@
 
   <div class="fade-up" style="position:relative; z-index:2;">
     <img src="/assets/logo.PNG" alt="Logo" class="footer-logo">
-    <h2 class="footer-names font-serif">Haedar &amp; Astuti</h2>
+    <h2 class="footer-names font-serif">Haedar &amp; Mitha</h2>
     <div class="gold-divider"><span class="diamond"></span></div>
     <p class="footer-note">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
   </div>
