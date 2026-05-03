@@ -1123,7 +1123,7 @@
 <body class="locked">
 
 <!-- ─── AUDIO PLAYER ─── -->
-<audio id="bg-audio" preload="metadata" autoplay loop>
+<audio id="bg-audio" preload="metadata" autoplay loop muted>
   <source src="/assets/glenn-kisah-romantis.mp3" type="audio/mpeg">
 </audio>
 
@@ -1961,7 +1961,14 @@
   function openEnvelope() {
     const envelope = document.getElementById('envelope');
     const screen = document.getElementById('envelope-screen');
+    const bgAudio = document.getElementById('bg-audio');
+    
     envelope.classList.add('open');
+    
+    // Unmute and play audio when user opens envelope
+    bgAudio.muted = false;
+    bgAudio.play().catch(err => console.log('Audio play failed:', err));
+    
     setTimeout(() => {
       screen.classList.add('hide');
       document.body.classList.remove('locked');
