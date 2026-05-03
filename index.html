@@ -822,6 +822,325 @@
     .audio-player:not(.playing) .play-icon { display: block; }
     .audio-player:not(.playing) .pause-icon { display: none; }
 
+    /* ─── RSVP SECTION ─── */
+    .rsvp-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .rsvp-form-wrapper {
+      background: rgba(212, 175, 55, 0.08);
+      padding: 2.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .rsvp-form-wrapper h3 {
+      font-size: 1.4rem;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem;
+      background: rgba(17, 32, 20, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(251, 249, 241, 0.4);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(17, 32, 20, 0.8);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+    }
+
+    .form-group select {
+      cursor: pointer;
+      appearance: none;
+      padding-right: 2rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23d4af37' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-color: rgba(17, 32, 20, 0.6);
+      padding-right: 2.5rem;
+    }
+
+    .form-group select option {
+      background: var(--dark-green);
+      color: var(--cream);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none;
+      border-radius: 4px;
+      color: var(--dark-green);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .guest-list-wrapper {
+      background: rgba(212, 175, 55, 0.08);
+      padding: 2.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .guest-list-wrapper h3 {
+      font-size: 1.4rem;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .guest-list-content {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .guest-item {
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+      background: rgba(17, 32, 20, 0.5);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .guest-item:hover {
+      background: rgba(17, 32, 20, 0.7);
+      transform: translateX(4px);
+    }
+
+    .guest-name {
+      font-size: 1rem;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .guest-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .guest-info span {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 2rem 1rem;
+      font-style: italic;
+    }
+
+    .admin-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 1.8rem;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .admin-button:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--gold);
+    }
+
+    /* Password Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal.show {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--dark-green);
+      padding: 2.5rem;
+      border-radius: 8px;
+      border: 2px solid var(--gold);
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 0.85rem;
+      background: rgba(17, 32, 20, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-input::placeholder {
+      color: rgba(251, 249, 241, 0.4);
+    }
+
+    .modal-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(17, 32, 20, 0.8);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .modal-btn.confirm {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark-green);
+    }
+
+    .modal-btn.confirm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .modal-btn.cancel {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+    }
+
+    .modal-btn.cancel:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--gold);
+    }
+
+    .success-message {
+      color: #4ade80;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .guest-count {
+      font-size: 0.85rem;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      padding: 0.75rem;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 4px;
+    }
+
     @media (max-width: 768px) {
       .couple-grid { grid-template-columns: 1fr; gap: 2rem; }
       .heart-divider { transform: rotate(90deg); }
@@ -829,6 +1148,8 @@
       .gold-divider { max-width: 200px; }
       .audio-player { top: 10px; right: 10px; padding: 10px 16px; font-size: 0.75rem; }
       .audio-player-text { font-size: 0.75rem; }
+      .rsvp-container { grid-template-columns: 1fr; gap: 2rem; }
+      .rsvp-form-wrapper, .guest-list-wrapper { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -1554,6 +1875,89 @@
   </div>
 </section>
 
+<!-- ─── RSVP SECTION ─── -->
+<div class="rsvp-section-wrapper">
+  <section>
+    <div class="fade-up">
+      <span class="section-tag font-display">Konfirmasi Kehadiran</span>
+      <h2 class="font-serif">Daftar Tamu Undangan</h2>
+      <p class="body-text">Silakan mengisi form di bawah untuk mengkonfirmasi kehadiran Anda. Kami menanti kedatangan Anda di hari istimewa kami.</p>
+    </div>
+
+    <div class="rsvp-container fade-up delay-100">
+      <!-- RSVP Form -->
+      <div class="rsvp-form-wrapper">
+        <h3>Formulir RSVP</h3>
+        <form id="rsvpForm">
+          <div class="form-group">
+            <label for="guestName">Nama Lengkap *</label>
+            <input type="text" id="guestName" placeholder="Masukkan nama Anda" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guestPhone">Nomor WhatsApp *</label>
+            <input type="tel" id="guestPhone" placeholder="08xx-xxxx-xxxx" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guestRelation">Hubungan dengan Mempelai *</label>
+            <select id="guestRelation" required>
+              <option value="">Pilih hubungan...</option>
+              <option value="Keluarga">Keluarga</option>
+              <option value="Teman">Teman</option>
+              <option value="Rekan Kerja">Rekan Kerja</option>
+              <option value="Tetangga">Tetangga</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guestAttendance">Konfirmasi Kehadiran *</label>
+            <select id="guestAttendance" required>
+              <option value="">Pilih status...</option>
+              <option value="Akan Hadir">Akan Hadir</option>
+              <option value="Tidak Bisa Hadir">Tidak Bisa Hadir</option>
+              <option value="Masih Ragu">Masih Ragu</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guestMessage">Pesan untuk Pengantin (Opsional)</label>
+            <input type="text" id="guestMessage" placeholder="Sampaikan doa dan harapan Anda...">
+          </div>
+
+          <button type="submit" class="submit-btn">Kirim RSVP</button>
+          <div class="success-message" id="successMessage">✓ Data berhasil disimpan!</div>
+        </form>
+      </div>
+
+      <!-- Guest List -->
+      <div class="guest-list-wrapper">
+        <h3>Daftar Tamu Hadir</h3>
+        <div class="guest-count">
+          <strong id="guestCountDisplay">0</strong> tamu telah mendaftar
+        </div>
+        <div class="guest-list-content" id="guestList">
+          <div class="empty-message">Belum ada tamu yang mendaftar</div>
+        </div>
+        <button class="admin-button" id="adminButton" onclick="showPasswordModal()">🔐 Kelola Data Tamu</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Password Modal -->
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <h2 class="font-serif">Akses Admin</h2>
+    <input type="password" class="modal-input" id="passwordInput" placeholder="Masukkan password...">
+    <div class="modal-buttons">
+      <button class="modal-btn cancel" onclick="closePasswordModal()">Batal</button>
+      <button class="modal-btn confirm" onclick="validatePassword()">Masuk</button>
+    </div>
+  </div>
+</div>
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <!-- Footer lily decorations -->
@@ -1654,6 +2058,246 @@
   bgAudio.addEventListener('play', () => audioPlayer.classList.add('playing'));
   bgAudio.addEventListener('pause', () => audioPlayer.classList.remove('playing'));
   bgAudio.addEventListener('ended', () => audioPlayer.classList.remove('playing'));
+
+  // ─── RSVP FUNCTIONALITY ─── 
+  const ADMIN_PASSWORD = 'haedar2026';
+  const STORAGE_KEY = 'rsvpGuestList';
+
+  // Load guests on page load
+  loadGuests();
+
+  // Form submission
+  document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const guestName = document.getElementById('guestName').value.trim();
+    const guestPhone = document.getElementById('guestPhone').value.trim();
+    const guestRelation = document.getElementById('guestRelation').value;
+    const guestAttendance = document.getElementById('guestAttendance').value;
+    const guestMessage = document.getElementById('guestMessage').value.trim();
+
+    if (!guestName || !guestPhone || !guestRelation || !guestAttendance) {
+      alert('Mohon isi semua field yang wajib (*)');
+      return;
+    }
+
+    // Create guest object
+    const guest = {
+      id: Date.now(),
+      name: guestName,
+      phone: guestPhone,
+      relation: guestRelation,
+      attendance: guestAttendance,
+      message: guestMessage,
+      timestamp: new Date().toLocaleString('id-ID')
+    };
+
+    // Save to localStorage
+    let guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    guests.push(guest);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
+
+    // Clear form
+    this.reset();
+
+    // Show success message
+    const successMsg = document.getElementById('successMessage');
+    successMsg.classList.add('show');
+    setTimeout(() => successMsg.classList.remove('show'), 3000);
+
+    // Reload guest list
+    loadGuests();
+  });
+
+  function loadGuests() {
+    const guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const guestList = document.getElementById('guestList');
+    const guestCount = document.getElementById('guestCountDisplay');
+
+    guestCount.textContent = guests.length;
+
+    if (guests.length === 0) {
+      guestList.innerHTML = '<div class="empty-message">Belum ada tamu yang mendaftar</div>';
+      return;
+    }
+
+    guestList.innerHTML = guests.map(guest => `
+      <div class="guest-item">
+        <div class="guest-name">${escapeHtml(guest.name)}</div>
+        <div class="guest-info">
+          <span>📞 ${escapeHtml(guest.phone)}</span>
+          <span>👥 ${escapeHtml(guest.relation)}</span>
+        </div>
+        <div class="guest-info">
+          <span>${guest.attendance === 'Akan Hadir' ? '✓' : '✗'} ${escapeHtml(guest.attendance)}</span>
+        </div>
+        ${guest.message ? `<div class="guest-info"><em>"${escapeHtml(guest.message)}"</em></div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function showPasswordModal() {
+    document.getElementById('passwordModal').classList.add('show');
+    document.getElementById('passwordInput').focus();
+  }
+
+  function closePasswordModal() {
+    document.getElementById('passwordModal').classList.remove('show');
+    document.getElementById('passwordInput').value = '';
+  }
+
+  function validatePassword() {
+    const password = document.getElementById('passwordInput').value;
+    
+    if (password === ADMIN_PASSWORD) {
+      showAdminPanel();
+      closePasswordModal();
+    } else {
+      alert('Password salah! ❌');
+      document.getElementById('passwordInput').value = '';
+    }
+  }
+
+  function showAdminPanel() {
+    const guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    
+    let adminContent = `
+      <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                  background: var(--dark-green); border: 2px solid var(--gold); 
+                  border-radius: 8px; padding: 2rem; max-width: 600px; width: 90%;
+                  max-height: 80vh; overflow-y: auto; z-index: 10001;
+                  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
+        <h2 style="color: var(--gold-light); margin-bottom: 1rem; font-family: 'Cormorant Garamond';">
+          Panel Admin Tamu
+        </h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Total Tamu: <strong style="color: var(--gold);">${guests.length}</strong>
+        </p>
+    `;
+
+    if (guests.length === 0) {
+      adminContent += '<p style="color: var(--text-muted); text-align: center;">Tidak ada tamu terdaftar</p>';
+    } else {
+      adminContent += '<table style="width: 100%; color: var(--cream); font-size: 0.9rem;">';
+      adminContent += '<tr style="border-bottom: 1px solid rgba(212, 175, 55, 0.3);">' +
+                     '<th style="text-align: left; padding: 0.5rem; color: var(--gold);">Nama</th>' +
+                     '<th style="text-align: left; padding: 0.5rem; color: var(--gold);">WhatsApp</th>' +
+                     '<th style="text-align: left; padding: 0.5rem; color: var(--gold);">Kehadiran</th>' +
+                     '<th style="text-align: center; padding: 0.5rem; color: var(--gold);">Aksi</th></tr>';
+
+      guests.forEach((guest, index) => {
+        adminContent += `
+          <tr style="border-bottom: 1px solid rgba(212, 175, 55, 0.15);">
+            <td style="padding: 0.5rem;">${escapeHtml(guest.name)}</td>
+            <td style="padding: 0.5rem;">${escapeHtml(guest.phone)}</td>
+            <td style="padding: 0.5rem; color: ${guest.attendance === 'Akan Hadir' ? '#4ade80' : '#f87171'};">
+              ${escapeHtml(guest.attendance)}
+            </td>
+            <td style="padding: 0.5rem; text-align: center;">
+              <button onclick="deleteGuest(${guest.id})" 
+                      style="background: rgba(220, 38, 38, 0.8); color: white; 
+                             border: none; padding: 0.3rem 0.6rem; border-radius: 3px; 
+                             cursor: pointer; font-size: 0.8rem;">
+                Hapus
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+      adminContent += '</table>';
+    }
+
+    adminContent += `
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+          <button onclick="exportGuests()" style="flex: 1; padding: 0.75rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); 
+                                                  color: var(--dark-green); border: none; border-radius: 4px; 
+                                                  cursor: pointer; font-weight: 600;">
+            📥 Export CSV
+          </button>
+          <button onclick="clearAllGuests()" style="flex: 1; padding: 0.75rem; background: rgba(220, 38, 38, 0.8); 
+                                                    color: white; border: none; border-radius: 4px; 
+                                                    cursor: pointer; font-weight: 600;">
+            🗑️ Hapus Semua
+          </button>
+          <button onclick="closeAdminPanel()" style="flex: 1; padding: 0.75rem; background: transparent; 
+                                                     color: var(--gold); border: 1px solid var(--gold); 
+                                                     border-radius: 4px; cursor: pointer; font-weight: 600;">
+            Tutup
+          </button>
+        </div>
+      </div>
+      <div onclick="closeAdminPanel()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                                             background: rgba(0, 0, 0, 0.7); z-index: 10000;"></div>
+    `;
+
+    const adminPanel = document.createElement('div');
+    adminPanel.id = 'adminPanel';
+    adminPanel.innerHTML = adminContent;
+    document.body.appendChild(adminPanel);
+  }
+
+  function closeAdminPanel() {
+    const panel = document.getElementById('adminPanel');
+    if (panel) panel.remove();
+  }
+
+  function deleteGuest(guestId) {
+    if (confirm('Hapus tamu ini?')) {
+      let guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      guests = guests.filter(g => g.id !== guestId);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
+      loadGuests();
+      closeAdminPanel();
+      showPasswordModal();
+    }
+  }
+
+  function clearAllGuests() {
+    if (confirm('Hapus SEMUA data tamu? Ini tidak dapat dibatalkan!')) {
+      localStorage.removeItem(STORAGE_KEY);
+      loadGuests();
+      closeAdminPanel();
+      showPasswordModal();
+    }
+  }
+
+  function exportGuests() {
+    const guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    let csv = 'Nama,WhatsApp,Hubungan,Kehadiran,Pesan,Waktu Pendaftaran\n';
+    
+    guests.forEach(guest => {
+      csv += `"${guest.name}","${guest.phone}","${guest.relation}","${guest.attendance}","${guest.message}","${guest.timestamp}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `daftar_tamu_${new Date().toLocaleDateString('id-ID')}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePasswordModal();
+    }
+  });
+
+  // Allow Enter key in password input
+  document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      validatePassword();
+    }
+  });
 </script>
 </body>
 </html>
