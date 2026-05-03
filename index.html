@@ -2007,7 +2007,18 @@
 
   document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
 
-
+  // ─── HIDE SCROLL INDICATOR ─── 
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  let hasScrolled = false;
+  
+  window.addEventListener('scroll', () => {
+    if (!hasScrolled && window.scrollY > 100) {
+      hasScrolled = true;
+      scrollIndicator.style.opacity = '0';
+      scrollIndicator.style.pointerEvents = 'none';
+      scrollIndicator.style.transition = 'opacity 0.6s ease-out';
+    }
+  });
 
   // ─── RSVP FUNCTIONALITY ─── 
   const ADMIN_PASSWORD = 'haedar2026';
