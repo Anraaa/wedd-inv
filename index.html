@@ -1141,6 +1141,7 @@
       .rsvp-form-wrapper, .guest-list-wrapper { padding: 1.5rem; }
     }
   </style>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body class="locked">
 
@@ -2040,15 +2041,18 @@
     }
   });
 
+  // ─── SUPABASE INIT ─── 
+  const { createClient } = supabase
+  const supabaseClient = createClient('https://onpgpfjkiwoltrbdnyqi.supabase.co', 'sb_publishable_6l1Hm14LLbAmvcQrS_IIuA_M4Gltwv_')
+
   // ─── RSVP FUNCTIONALITY ─── 
   const ADMIN_PASSWORD = 'haedar2026';
-  const STORAGE_KEY = 'rsvpGuestList';
 
   // Load guests on page load
   loadGuests();
 
   // Form submission
-  document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+  document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
     const guestName = document.getElementById('guestName').value.trim();
@@ -2062,21 +2066,31 @@
       return;
     }
 
-    // Create guest object
-    const guest = {
-      id: Date.now(),
+    // Cek duplikasi nomor WA
+    const { data: existing } = await supabaseClient
+      .from('guests')
+      .select('id')
+      .eq('phone', guestPhone)
+
+    if (existing && existing.length > 0) {
+      alert('Nomor WhatsApp ini sudah terdaftar!');
+      return;
+    }
+
+    // Simpan ke Supabase
+    const { error } = await supabaseClient.from('guests').insert([{
       name: guestName,
       phone: guestPhone,
       relation: guestRelation,
       attendance: guestAttendance,
-      message: guestMessage,
-      timestamp: new Date().toLocaleString('id-ID')
-    };
+      message: guestMessage
+    }])
 
-    // Save to localStorage
-    let guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    guests.push(guest);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
+    if (error) {
+      alert('Gagal menyimpan data. Coba lagi.');
+      console.error(error)
+      return
+    }
 
     // Clear form
     this.reset();
@@ -2090,10 +2104,20 @@
     loadGuests();
   });
 
-  function loadGuests() {
-    const guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  async function loadGuests() {
+    const { data: guests, error } = await supabaseClient
+      .from('guests')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error(error)
+      return
+    }
+
     const guestList = document.getElementById('guestList');
     const guestCount = document.getElementById('guestCountDisplay');
+    const guestListEl = document.getElementById('guestList');
 
     guestCount.textContent = guests.length;
 
@@ -2106,7 +2130,6 @@
       <div class="guest-item">
         <div class="guest-name">${escapeHtml(guest.name)}</div>
         <div class="guest-info">
-          <span>📞 ${escapeHtml(guest.phone)}</span>
           <span>👥 ${escapeHtml(guest.relation)}</span>
         </div>
         <div class="guest-info">
@@ -2139,9 +2162,14 @@
     }
   }
 
-  function showAdminPanel() {
-    const guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    
+  async function showAdminPanel() {
+    const { data: guests, error } = await supabaseClient
+      .from('guests')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) return console.error(error)
+
     let adminContent = `
       <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
                   background: var(--dark-green); border: 2px solid var(--gold); 
@@ -2222,32 +2250,38 @@
     if (panel) panel.remove();
   }
 
-  function deleteGuest(guestId) {
+  async function deleteGuest(guestId) {
     if (confirm('Hapus tamu ini?')) {
-      let guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-      guests = guests.filter(g => g.id !== guestId);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
+      const { error } = await supabaseClient.from('guests').delete().eq('id', guestId)
+      if (error) return console.error(error)
       loadGuests();
       closeAdminPanel();
       showPasswordModal();
     }
   }
 
-  function clearAllGuests() {
+  async function clearAllGuests() {
     if (confirm('Hapus SEMUA data tamu? Ini tidak dapat dibatalkan!')) {
-      localStorage.removeItem(STORAGE_KEY);
+      const { error } = await supabaseClient.from('guests').delete().neq('id', 0)
+      if (error) return console.error(error)
       loadGuests();
       closeAdminPanel();
       showPasswordModal();
     }
   }
 
-  function exportGuests() {
-    const guests = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  async function exportGuests() {
+    const { data: guests, error } = await supabaseClient
+      .from('guests')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) return console.error(error)
+
     let csv = 'Nama,WhatsApp,Hubungan,Kehadiran,Pesan,Waktu Pendaftaran\n';
     
     guests.forEach(guest => {
-      csv += `"${guest.name}","${guest.phone}","${guest.relation}","${guest.attendance}","${guest.message}","${guest.timestamp}"\n`;
+      csv += `"${guest.name}","${guest.phone}","${guest.relation}","${guest.attendance}","${guest.message}","${guest.created_at}"\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv' });
